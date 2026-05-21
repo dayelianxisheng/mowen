@@ -103,6 +103,7 @@
       </visual>
     </link>
     <joint name='back_left_joint' type='revolute'>
+        <damping>0.5</damping>
       <pose relative_to='base_footprint'>-0.079747999999999999 0.1454 0.048586999999999998 0 0 0</pose>
       <parent>base_footprint</parent>
       <child>back_left_wheel</child>
@@ -133,6 +134,20 @@
         </inertia>
       </inertial>
       <collision name='back_left_wheel_collision'>
+      <surface>
+        <friction>
+          <ode>
+            <mu>0.3</mu>
+            <mu2>0.02</mu2>
+          </ode>
+        </friction>
+        <contact>
+          <ode>
+            <kp>1e5</kp>
+            <kd>10</kd>
+          </ode>
+        </contact>
+      </surface>
         <pose>0 0 0 0 0 0</pose>
         <geometry>
           <mesh>
@@ -156,6 +171,7 @@
       </visual>
     </link>
     <joint name='back_right_joint' type='revolute'>
+        <damping>0.5</damping>
       <pose relative_to='base_footprint'>-0.079777000000000001 -0.1454 0.048398999999999998 0 0 0</pose>
       <parent>base_footprint</parent>
       <child>back_right_wheel</child>
@@ -186,6 +202,20 @@
         </inertia>
       </inertial>
       <collision name='back_right_wheel_collision'>
+      <surface>
+        <friction>
+          <ode>
+            <mu>0.3</mu>
+            <mu2>0.02</mu2>
+          </ode>
+        </friction>
+        <contact>
+          <ode>
+            <kp>1e5</kp>
+            <kd>10</kd>
+          </ode>
+        </contact>
+      </surface>
         <pose>0 0 0 0 0 0</pose>
         <geometry>
           <mesh>
@@ -209,6 +239,7 @@
       </visual>
     </link>
     <joint name='front_left_joint' type='revolute'>
+        <damping>0.5</damping>
       <pose relative_to='base_footprint'>0.12726999999999999 0.1454 0.048571999999999997 0 0 0</pose>
       <parent>base_footprint</parent>
       <child>front_left_wheel</child>
@@ -239,6 +270,20 @@
         </inertia>
       </inertial>
       <collision name='front_left_wheel_collision'>
+      <surface>
+        <friction>
+          <ode>
+            <mu>0.3</mu>
+            <mu2>0.02</mu2>
+          </ode>
+        </friction>
+        <contact>
+          <ode>
+            <kp>1e5</kp>
+            <kd>10</kd>
+          </ode>
+        </contact>
+      </surface>
         <pose>0 0 0 0 0 0</pose>
         <geometry>
           <mesh>
@@ -262,6 +307,7 @@
       </visual>
     </link>
     <joint name='front_right_joint' type='revolute'>
+        <damping>0.5</damping>
       <pose relative_to='base_footprint'>0.12720999999999999 -0.1454 0.048603 0 0 0</pose>
       <parent>base_footprint</parent>
       <child>front_right_wheel</child>
@@ -292,6 +338,20 @@
         </inertia>
       </inertial>
       <collision name='front_right_wheel_collision'>
+      <surface>
+        <friction>
+          <ode>
+            <mu>0.3</mu>
+            <mu2>0.02</mu2>
+          </ode>
+        </friction>
+        <contact>
+          <ode>
+            <kp>1e5</kp>
+            <kd>10</kd>
+          </ode>
+        </contact>
+      </surface>
         <pose>0 0 0 0 0 0</pose>
         <geometry>
           <mesh>
