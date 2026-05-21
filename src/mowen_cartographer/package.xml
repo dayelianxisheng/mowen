@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>mowen_cartographer</name>
+  <version>1.0.0</version>
+  <description>Cartographer SLAM for Mowen robot</description>
+  <maintainer email="your@email.com">Your Name</maintainer>
+  <license>BSD</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <exec_depend>cartographer_ros</exec_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

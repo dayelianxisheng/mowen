@@ -131,28 +131,28 @@
   <joint name="front_left_joint" type="continuous">
     <parent link="base_link"/>
     <child link="front_left_wheel"/>
-    <origin xyz="0.12727 0.1454 0.048572" rpy="1.5708 0 0"/>
+    <origin xyz="0.12727 0.1454 0.048572" rpy="0 0 0"/>
     <axis xyz="0 1 0"/>
   </joint>
 
   <joint name="front_right_joint" type="continuous">
     <parent link="base_link"/>
     <child link="front_right_wheel"/>
-    <origin xyz="0.12721 -0.1454 0.048603" rpy="-1.5708 0 3.1416"/>
+    <origin xyz="0.12721 -0.1454 0.048603" rpy="0 0 0"/>
     <axis xyz="0 1 0"/>
   </joint>
 
   <joint name="back_left_joint" type="continuous">
     <parent link="base_link"/>
     <child link="back_left_wheel"/>
-    <origin xyz="-0.079748 0.1454 0.048587" rpy="1.5708 0 0"/>
+    <origin xyz="-0.079748 0.1454 0.048587" rpy="0 0 0"/>
     <axis xyz="0 1 0"/>
   </joint>
 
   <joint name="back_right_joint" type="continuous">
     <parent link="base_link"/>
     <child link="back_right_wheel"/>
-    <origin xyz="-0.079777 -0.1454 0.048399" rpy="-1.5708 0 3.1416"/>
+    <origin xyz="-0.079777 -0.1454 0.048399" rpy="0 0 0"/>
     <axis xyz="0 1 0"/>
   </joint>
 
