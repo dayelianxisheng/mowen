@@ -6,6 +6,7 @@ RUN mkdir -p ${MOWEN_WS}/src
 
 # 写 bashrc，进入容器自动 source 环境
 RUN echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc && \
+    echo "source /usr/share/gazebo/setup.sh" >> ~/.bashrc && \
     echo "source \${MOWEN_WS}/install/setup.bash" >> ~/.bashrc && \
     echo "export ROS_DOMAIN_ID=30" >> ~/.bashrc && \
     echo "export GAZEBO_MODEL_PATH=\${GAZEBO_MODEL_PATH}:\${MOWEN_WS}/install/mowen_gazebo/share/mowen_gazebo/models" >> ~/.bashrc && \

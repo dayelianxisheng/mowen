@@ -69,6 +69,33 @@
 
 ---
 
+## Bug 6: /spawn_entity 服务不可用（30秒超时）
+
+**现象**: `ros2 launch mowen_gazebo empty_world.launch.py` 后 spawn_entity 报错 `Service /spawn_entity unavailable`。
+
+**根因**: `gazebo_ros` 的 `GazeboRosPaths.get_paths()` 遍历所有包的 `package.xml` 的 `<gazebo_ros>` export 标签来构建 `GAZEBO_PLUGIN_PATH`，但核心 `gazebo_ros` 包自己没写这些标签，函数返回空值。`gzserver.launch.py` 用空值覆写了环境变量，导致 `libgazebo_ros_factory.so` 找不到。
+
+**修复**:
+- `src/mowen_gazebo/launch/empty_world.launch.py` 重写，不再 Include `gzserver.launch.py`/`gzclient.launch.py`，改用 `ExecuteProcess` 直接运行 gzserver/gzclient，硬编码正确的 `GAZEBO_PLUGIN_PATH`（含 `/opt/ros/humble/lib`）
+- `docker/Dockerfile` 加 `source /usr/share/gazebo/setup.sh` 确保系统 Gazebo 路径
+
+---
+
+## Bug 7: 轮子嵌入地面
+
+**现象**: Gazebo 中轮子有一小部分嵌入地面以下。
+
+**根因**: 轮子碰撞圆柱体尺寸远小于实际 STL 轮子。
+- 圆柱体 radius=0.033m，实际 STL 半径 ~0.0485m
+- 圆柱体 length=0.020m，实际 STL 宽度 ~0.0506m
+碰撞体太小→机器人下沉到 base_footprint 碰撞体着地→视觉网格穿透地面。
+
+**修复** (`scripts/fix_sdf.py`, `scripts/fix_wheel_collision.py`, `model.sdf`):
+- 4 个轮子碰撞圆柱体 `radius` 从 0.033→0.0485
+- 4 个轮子碰撞圆柱体 `length` 从 0.020→0.0506
+
+---
+
 ## 当前模型物理参数
 
 | 参数 | 值 | 位置 |

@@ -25,7 +25,8 @@ def generate_launch_description():
             '-entity', 'mowen',
             '-file', sdf_path,
             '-x', x_pose,
-            '-y', y_pose
+            '-y', y_pose,
+            '-z', '0.01'
         ],
         output='screen',
     )

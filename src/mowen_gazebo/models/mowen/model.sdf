@@ -1,19 +1,19 @@
-<sdf version='1.7'>
-  <model name='mowen'>
-    <link name='base_footprint'>
+<sdf version="1.7">
+  <model name="mowen">
+    <link name="base_footprint">
       <inertial>
         <pose>-0.071852292474681348 0.0073821282463014011 0.1196762066447697 0 0 0</pose>
-        <mass>3.11316781239981e-05</mass>
+        <mass>0.486218814966626</mass>
         <inertia>
-          <ixx>5.033974918393183e-08</ixx>
-          <ixy>5.1635607995798929e-09</ixy>
-          <ixz>9.4828420056860153e-15</ixz>
-          <iyy>1.4730604379858481e-08</iyy>
-          <iyz>-9.2443087894032133e-14</iyz>
-          <izz>6.5064252958162658e-08</izz>
+          <ixx>0.00196277727666921</ixx>
+          <ixy>2.50447049446755e-07</ixy>
+          <ixz>0.000140534767811098</ixz>
+          <iyy>0.00457256033711368</iyy>
+          <iyz>2.68618064993882e-07</iyz>
+          <izz>0.00493927269870476</izz>
         </inertia>
       </inertial>
-      <collision name='base_footprint_fixed_joint_lump__base_link_collision'>
+      <collision name="base_footprint_fixed_joint_lump__base_link_collision">
         <pose>0 0 0 0 0 0</pose>
         <geometry>
           <mesh>
@@ -22,7 +22,7 @@
           </mesh>
         </geometry>
       </collision>
-      <collision name='base_footprint_fixed_joint_lump__imu_link_collision_1'>
+      <collision name="base_footprint_fixed_joint_lump__imu_link_collision_1">
         <pose>0.14419000000000001 0.00215 0.10340000000000001 -3.1415853071795872 0 0</pose>
         <geometry>
           <mesh>
@@ -31,7 +31,7 @@
           </mesh>
         </geometry>
       </collision>
-      <collision name='base_footprint_fixed_joint_lump__camera_link_collision_2'>
+      <collision name="base_footprint_fixed_joint_lump__camera_link_collision_2">
         <pose>0.14913999999999999 -0.00049737000000000002 0.19997999999999999 0 0 0</pose>
         <geometry>
           <mesh>
@@ -40,7 +40,7 @@
           </mesh>
         </geometry>
       </collision>
-      <collision name='base_footprint_fixed_joint_lump__laser_link_collision_3'>
+      <collision name="base_footprint_fixed_joint_lump__laser_link_collision_3">
         <pose>0.13374 0 0.13599 0 0 0</pose>
         <geometry>
           <mesh>
@@ -49,7 +49,7 @@
           </mesh>
         </geometry>
       </collision>
-      <visual name='base_footprint_fixed_joint_lump__base_link_visual'>
+      <visual name="base_footprint_fixed_joint_lump__base_link_visual">
         <pose>0 0 0 0 0 0</pose>
         <geometry>
           <mesh>
@@ -62,7 +62,7 @@
           <ambient>1 1 1 1</ambient>
         </material>
       </visual>
-      <visual name='base_footprint_fixed_joint_lump__imu_link_visual_1'>
+      <visual name="base_footprint_fixed_joint_lump__imu_link_visual_1">
         <pose>0.14419000000000001 0.00215 0.10340000000000001 -3.1415853071795872 0 0</pose>
         <geometry>
           <mesh>
@@ -75,7 +75,7 @@
           <ambient>1 1 1 1</ambient>
         </material>
       </visual>
-      <visual name='base_footprint_fixed_joint_lump__camera_link_visual_2'>
+      <visual name="base_footprint_fixed_joint_lump__camera_link_visual_2">
         <pose>0.14913999999999999 -0.00049737000000000002 0.19997999999999999 0 0 0</pose>
         <geometry>
           <mesh>
@@ -88,7 +88,7 @@
           <ambient>1 1 1 1</ambient>
         </material>
       </visual>
-      <visual name='base_footprint_fixed_joint_lump__laser_link_visual_3'>
+      <visual name="base_footprint_fixed_joint_lump__laser_link_visual_3">
         <pose>0.13374 0 0.13599 0 0 0</pose>
         <geometry>
           <mesh>
@@ -102,9 +102,9 @@
         </material>
       </visual>
     </link>
-    <joint name='back_left_joint' type='revolute'>
+    <joint name="back_left_joint" type="revolute">
         <damping>0.5</damping>
-      <pose relative_to='base_footprint'>-0.079747999999999999 0.1454 0.048586999999999998 0 0 0</pose>
+      <pose relative_to="base_footprint">-0.079747999999999999 0.1454 0.048586999999999998 0 0 0</pose>
       <parent>base_footprint</parent>
       <child>back_left_wheel</child>
       <axis>
@@ -119,21 +119,21 @@
         </dynamics>
       </axis>
     </joint>
-    <link name='back_left_wheel'>
-      <pose relative_to='back_left_joint'>0 0 0 0 0 0</pose>
+    <link name="back_left_wheel">
+      <pose relative_to="back_left_joint">0 0 0 0 0 0</pose>
       <inertial>
         <pose>0.0078968748520204801 -0.138021691116814 0.071089649818650805 0 0 0</pose>
-        <mass>7.7829195309994506e-06</mass>
+        <mass>0.0515309299357028</mass>
         <inertia>
-          <ixx>1.2584937295170699e-08</ixx>
-          <ixy>1.2908902001364701e-09</ixy>
-          <ixz>-1.25395919207575e-18</ixz>
-          <iyy>3.6826510855962798e-09</iyy>
-          <iyz>-8.8282246737383005e-20</iyz>
-          <izz>1.6266063231282298e-08</izz>
+          <ixx>1.45942986129926e-05</ixx>
+          <ixy>-3.19787215398093e-10</ixy>
+          <ixz>1.74943062058915e-09</ixz>
+          <iyy>1.45948727598913e-05</iyy>
+          <iyz>1.61769812110049e-10</iyz>
+          <izz>2.4263683888153e-05</izz>
         </inertia>
       </inertial>
-      <collision name='back_left_wheel_collision'>
+      <collision name="back_left_wheel_collision">
       <surface>
         <friction>
           <ode>
@@ -143,20 +143,24 @@
         </friction>
         <contact>
           <ode>
+            <soft_cfm>0</soft_cfm>
+            <soft_erp>0.2</soft_erp>
             <kp>1e5</kp>
             <kd>10</kd>
+            <max_vel>0.01</max_vel>
+            <min_depth>0.001</min_depth>
           </ode>
         </contact>
       </surface>
-        <pose>0 0 0 0 0 0</pose>
+        <pose>0 0 0 1.57 0 0</pose>
         <geometry>
-          <mesh>
-            <scale>1 1 1</scale>
-            <uri>model://mowen_common/meshes/mecanum/back_left_wheel.STL</uri>
-          </mesh>
+          <cylinder>
+            <radius>0.0485</radius>
+            <length>0.0506</length>
+          </cylinder>
         </geometry>
       </collision>
-      <visual name='back_left_wheel_visual'>
+      <visual name="back_left_wheel_visual">
         <pose>0 0 0 0 0 0</pose>
         <geometry>
           <mesh>
@@ -170,9 +174,9 @@
         </material>
       </visual>
     </link>
-    <joint name='back_right_joint' type='revolute'>
+    <joint name="back_right_joint" type="revolute">
         <damping>0.5</damping>
-      <pose relative_to='base_footprint'>-0.079777000000000001 -0.1454 0.048398999999999998 0 0 0</pose>
+      <pose relative_to="base_footprint">-0.079777000000000001 -0.1454 0.048398999999999998 0 0 0</pose>
       <parent>base_footprint</parent>
       <child>back_right_wheel</child>
       <axis>
@@ -187,21 +191,21 @@
         </dynamics>
       </axis>
     </joint>
-    <link name='back_right_wheel'>
-      <pose relative_to='back_right_joint'>0 0 0 0 0 0</pose>
+    <link name="back_right_wheel">
+      <pose relative_to="back_right_joint">0 0 0 0 0 0</pose>
       <inertial>
         <pose>0.0079255800752017595 0.15278600680662899 0.071276995489236494 0 0 0</pose>
-        <mass>7.7829195309994506e-06</mass>
+        <mass>0.051540174053366</mass>
         <inertia>
-          <ixx>1.2584937295170699e-08</ixx>
-          <ixy>1.2908902001364701e-09</ixy>
-          <ixz>-1.2539659125873899e-18</ixz>
-          <iyy>3.6826510855962798e-09</iyy>
-          <iyz>-8.8258120911024502e-20</iyz>
-          <izz>1.6266063231282298e-08</izz>
+          <ixx>1.45974152250002e-05</ixx>
+          <ixy>1.94850559178397e-10</ixy>
+          <ixz>-1.61846387282284e-09</ixz>
+          <iyy>1.4596501955693e-05</iyy>
+          <iyz>-6.27904057423818e-10</iyz>
+          <izz>2.42663091380451e-05</izz>
         </inertia>
       </inertial>
-      <collision name='back_right_wheel_collision'>
+      <collision name="back_right_wheel_collision">
       <surface>
         <friction>
           <ode>
@@ -211,20 +215,24 @@
         </friction>
         <contact>
           <ode>
+            <soft_cfm>0</soft_cfm>
+            <soft_erp>0.2</soft_erp>
             <kp>1e5</kp>
             <kd>10</kd>
+            <max_vel>0.01</max_vel>
+            <min_depth>0.001</min_depth>
           </ode>
         </contact>
       </surface>
-        <pose>0 0 0 0 0 0</pose>
+        <pose>0 0 0 1.57 0 0</pose>
         <geometry>
-          <mesh>
-            <scale>1 1 1</scale>
-            <uri>model://mowen_common/meshes/mecanum/back_right_wheel.STL</uri>
-          </mesh>
+          <cylinder>
+            <radius>0.0485</radius>
+            <length>0.0506</length>
+          </cylinder>
         </geometry>
       </collision>
-      <visual name='back_right_wheel_visual'>
+      <visual name="back_right_wheel_visual">
         <pose>0 0 0 0 0 0</pose>
         <geometry>
           <mesh>
@@ -238,9 +246,9 @@
         </material>
       </visual>
     </link>
-    <joint name='front_left_joint' type='revolute'>
+    <joint name="front_left_joint" type="revolute">
         <damping>0.5</damping>
-      <pose relative_to='base_footprint'>0.12726999999999999 0.1454 0.048571999999999997 0 0 0</pose>
+      <pose relative_to="base_footprint">0.12726999999999999 0.1454 0.048571999999999997 0 0 0</pose>
       <parent>base_footprint</parent>
       <child>front_left_wheel</child>
       <axis>
@@ -255,21 +263,21 @@
         </dynamics>
       </axis>
     </joint>
-    <link name='front_left_wheel'>
-      <pose relative_to='front_left_joint'>0 0 0 0 0 0</pose>
+    <link name="front_left_wheel">
+      <pose relative_to="front_left_joint">0 0 0 0 0 0</pose>
       <inertial>
         <pose>-0.19911978480737899 -0.138021691116814 0.071103918576079006 0 0 0</pose>
-        <mass>7.7829195309994506e-06</mass>
+        <mass>0.051543</mass>
         <inertia>
-          <ixx>1.25849372951706e-08</ixx>
-          <ixy>1.29089020013659e-09</ixy>
-          <ixz>-1.25397068458052e-18</ixz>
-          <iyy>3.68265108559631e-09</iyy>
-          <iyz>-8.8273681340688497e-20</iyz>
-          <izz>1.6266063231282298e-08</izz>
+          <ixx>1.4597e-05</ixx>
+          <ixy>-4.7945e-10</ixy>
+          <ixz>-2.4786e-10</ixz>
+          <iyy>1.4598e-05</iyy>
+          <iyz>1.7972e-09</iyz>
+          <izz>2.4267e-05</izz>
         </inertia>
       </inertial>
-      <collision name='front_left_wheel_collision'>
+      <collision name="front_left_wheel_collision">
       <surface>
         <friction>
           <ode>
@@ -279,20 +287,24 @@
         </friction>
         <contact>
           <ode>
+            <soft_cfm>0</soft_cfm>
+            <soft_erp>0.2</soft_erp>
             <kp>1e5</kp>
             <kd>10</kd>
+            <max_vel>0.01</max_vel>
+            <min_depth>0.001</min_depth>
           </ode>
         </contact>
       </surface>
-        <pose>0 0 0 0 0 0</pose>
+        <pose>0 0 0 1.57 0 0</pose>
         <geometry>
-          <mesh>
-            <scale>1 1 1</scale>
-            <uri>model://mowen_common/meshes/mecanum/front_left_wheel.STL</uri>
-          </mesh>
+          <cylinder>
+            <radius>0.0485</radius>
+            <length>0.0506</length>
+          </cylinder>
         </geometry>
       </collision>
-      <visual name='front_left_wheel_visual'>
+      <visual name="front_left_wheel_visual">
         <pose>0 0 0 0 0 0</pose>
         <geometry>
           <mesh>
@@ -306,9 +318,9 @@
         </material>
       </visual>
     </link>
-    <joint name='front_right_joint' type='revolute'>
+    <joint name="front_right_joint" type="revolute">
         <damping>0.5</damping>
-      <pose relative_to='base_footprint'>0.12720999999999999 -0.1454 0.048603 0 0 0</pose>
+      <pose relative_to="base_footprint">0.12720999999999999 -0.1454 0.048603 0 0 0</pose>
       <parent>base_footprint</parent>
       <child>front_right_wheel</child>
       <axis>
@@ -323,21 +335,21 @@
         </dynamics>
       </axis>
     </joint>
-    <link name='front_right_wheel'>
-      <pose relative_to='front_right_joint'>0 0 0 0 0 0</pose>
+    <link name="front_right_wheel">
+      <pose relative_to="front_right_joint">0 0 0 0 0 0</pose>
       <inertial>
         <pose>-0.199063466201963 0.15278600680662899 0.071072963065646103 0 0 0</pose>
-        <mass>7.7829195309994506e-06</mass>
+        <mass>0.051532</mass>
         <inertia>
-          <ixx>1.2584937295170699e-08</ixx>
-          <ixy>1.2908902001364701e-09</ixy>
-          <ixz>-1.2539659125873899e-18</ixz>
-          <iyy>3.6826510855962798e-09</iyy>
-          <iyz>-8.8258120911023804e-20</iyz>
-          <izz>1.6266063231282298e-08</izz>
+          <ixx>1.4595e-05</ixx>
+          <ixy>-4.3975e-10</ixy>
+          <ixz>4.415e-10</ixz>
+          <iyy>1.4594e-05</iyy>
+          <iyz>-1.7476e-09</iyz>
+          <izz>2.4264e-05</izz>
         </inertia>
       </inertial>
-      <collision name='front_right_wheel_collision'>
+      <collision name="front_right_wheel_collision">
       <surface>
         <friction>
           <ode>
@@ -347,20 +359,24 @@
         </friction>
         <contact>
           <ode>
+            <soft_cfm>0</soft_cfm>
+            <soft_erp>0.2</soft_erp>
             <kp>1e5</kp>
             <kd>10</kd>
+            <max_vel>0.01</max_vel>
+            <min_depth>0.001</min_depth>
           </ode>
         </contact>
       </surface>
-        <pose>0 0 0 0 0 0</pose>
+        <pose>0 0 0 1.57 0 0</pose>
         <geometry>
-          <mesh>
-            <scale>1 1 1</scale>
-            <uri>model://mowen_common/meshes/mecanum/front_right_wheel.STL</uri>
-          </mesh>
+          <cylinder>
+            <radius>0.0485</radius>
+            <length>0.0506</length>
+          </cylinder>
         </geometry>
       </collision>
-      <visual name='front_right_wheel_visual'>
+      <visual name="front_right_wheel_visual">
         <pose>0 0 0 0 0 0</pose>
         <geometry>
           <mesh>
@@ -374,33 +390,33 @@
         </material>
       </visual>
     </link>
-    <frame name='base_imu' attached_to='base_link'>
+    <frame name="base_imu" attached_to="base_link">
       <pose>0.14419000000000001 0.00215 0.10340000000000001 -3.1415853071795872 0 0</pose>
     </frame>
-    <frame name='imu_link' attached_to='base_imu'>
+    <frame name="imu_link" attached_to="base_imu">
       <pose>0 0 0 0 0 0</pose>
     </frame>
-    <frame name='camera_joint' attached_to='base_link'>
+    <frame name="camera_joint" attached_to="base_link">
       <pose>0.14913999999999999 -0.00049737000000000002 0.19997999999999999 0 0 0</pose>
     </frame>
-    <frame name='camera_link' attached_to='camera_joint'>
+    <frame name="camera_link" attached_to="camera_joint">
       <pose>0 0 0 0 0 0</pose>
     </frame>
-    <frame name='laser_joint' attached_to='base_link'>
+    <frame name="laser_joint" attached_to="base_link">
       <pose>0.13374 0 0.13599 0 0 0</pose>
     </frame>
-    <frame name='laser_link' attached_to='laser_joint'>
+    <frame name="laser_link" attached_to="laser_joint">
       <pose>0 0 0 0 0 0</pose>
     </frame>
-    <frame name='base_joint' attached_to='base_footprint'>
+    <frame name="base_joint" attached_to="base_footprint">
       <pose>0 0 0 0 0 0</pose>
     </frame>
-    <frame name='base_link' attached_to='base_joint'>
+    <frame name="base_link" attached_to="base_joint">
       <pose>0 0 0 0 0 0</pose>
     </frame>
 
-    <!-- Drive plugin -->
-    <plugin name='mowen_drive' filename='libgazebo_ros_planar_move.so'>
+    
+    <plugin name="mowen_drive" filename="libgazebo_ros_planar_move.so">
       <ros>
         <remapping>~/cmd_vel:=cmd_vel</remapping>
         <remapping>~/odom:=odom</remapping>
@@ -411,8 +427,8 @@
       <publish_odom>true</publish_odom>
     </plugin>
 
-    <!-- Joint state publisher -->
-    <plugin name='mowen_joint_state' filename='libgazebo_ros_joint_state_publisher.so'>
+    
+    <plugin name="mowen_joint_state" filename="libgazebo_ros_joint_state_publisher.so">
       <ros>
         <remapping>~/out:=joint_states</remapping>
       </ros>

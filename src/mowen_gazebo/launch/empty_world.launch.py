@@ -1,20 +1,14 @@
 import os
 
-# 确保 ROS 库路径对子进程（gzserver）可用
-os.environ.setdefault('LD_LIBRARY_PATH', '')
-if '/opt/ros/humble/lib' not in os.environ['LD_LIBRARY_PATH']:
-    os.environ['LD_LIBRARY_PATH'] = '/opt/ros/humble/lib:' + os.environ['LD_LIBRARY_PATH']
-
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
+from launch.actions import DeclareLaunchArgument, ExecuteProcess, IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
 
 
 def generate_launch_description():
     pkg_mowen = get_package_share_directory('mowen_gazebo')
-    pkg_gazebo_ros = get_package_share_directory('gazebo_ros')
 
     use_sim_time = LaunchConfiguration('use_sim_time', default='true')
     x_pose = LaunchConfiguration('x_pose', default='0.0')
@@ -22,14 +16,42 @@ def generate_launch_description():
 
     world = os.path.join(pkg_mowen, 'worlds', 'empty_world.world')
 
-    gzserver_cmd = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            os.path.join(pkg_gazebo_ros, 'launch', 'gzserver.launch.py')),
-        launch_arguments={'world': world}.items())
+    # GazeboRosPaths.get_paths() is unreliable (returns empty in some envs).
+    # Set paths directly to ensure libgazebo_ros_factory.so is found.
+    gazebo_plugin_path = os.pathsep.join([
+        '/opt/ros/humble/lib',
+        '/usr/lib/x86_64-linux-gnu/gazebo-11/plugins',
+    ])
+    gazebo_resource_path = os.pathsep.join([
+        '/opt/ros/humble/share/gazebo_ros',
+        '/usr/share/gazebo-11',
+    ])
+    gazebo_model_path = os.pathsep.join([
+        os.path.join(pkg_mowen, 'models'),
+        '/opt/ros/humble/share/gazebo_ros/models',
+        '/usr/share/gazebo-11/models',
+    ])
 
-    gzclient_cmd = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            os.path.join(pkg_gazebo_ros, 'launch', 'gzclient.launch.py')))
+    gazebo_env = {
+        'GAZEBO_MODEL_PATH': gazebo_model_path,
+        'GAZEBO_PLUGIN_PATH': gazebo_plugin_path,
+        'GAZEBO_RESOURCE_PATH': gazebo_resource_path,
+    }
+
+    gzserver_cmd = ExecuteProcess(
+        cmd=['gzserver', '--verbose', world,
+             '-s', 'libgazebo_ros_init.so',
+             '-s', 'libgazebo_ros_factory.so',
+             '-s', 'libgazebo_ros_force_system.so'],
+        output='screen',
+        additional_env=gazebo_env,
+    )
+
+    gzclient_cmd = ExecuteProcess(
+        cmd=['gzclient'],
+        output='screen',
+        additional_env=gazebo_env,
+    )
 
     robot_state_publisher_cmd = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
