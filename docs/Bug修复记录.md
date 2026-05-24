@@ -96,6 +96,49 @@
 
 ---
 
+## Bug 8: Cartographer 不建图（submap_list 始终为空）
+
+**现象**: Cartographer 运行后 `/submap_list` 显示 `submap: []`，`/map` 无数据，RViz 显示 "no map received"。
+
+**根因**: `mowen_lds_2d.lua` 中 `TRAJECTORY_BUILDER_2D.use_imu_data = true`，但机器人没有 IMU 传感器。Cartographer 的 ordered_multi_queue 一直等待 IMU 数据 `Queue waiting for data: (0, imu)`，导致所有传感器数据（scan、odom）都无法处理，子图永远不会创建。
+
+**修复** (`src/mowen_cartographer/config/mowen_lds_2d.lua`):
+- `TRAJECTORY_BUILDER_2D.use_imu_data` 从 `true` 改为 `false`
+
+---
+
+## Bug 9: 转弯/停车时建图出现黑斑（已扫白的区域变黑）
+
+**现象**: 小车停止后前进，停止点变黑；先停再转向再前进，该点更黑。
+
+**根因**: 两个原因叠加：
+1. 激光 `min_range = 0.12` 太小，激光扫到了机器人自身（轮子、车身边缘约 0.12~0.2m），cartographer 把自扫点当真障碍物标记
+2. 之前添加的 `ceres_scan_matcher.rotation_weight = 60` 过高，导致转弯时过分信任里程计，里程计微小偏差无法被纠正，激光点云投影错位
+
+**修复**:
+- `min_range` 从 0.12 改为 **0.25**（过滤自扫点）
+- 删除 `ceres_scan_matcher.translation_weight`、`rotation_weight`
+- 删除 `motion_filter.max_distance_meters`
+- 删除 `submaps.num_range_data`
+- `motion_filter.max_angle_radians` 恢复为 `math.rad(0.1)`（与 turtlebot3 一致）
+
+---
+
+## Bug 10: RViz 中 /map 话题有数据但界面不显示
+
+**现象**: `ros2 topic echo /map` 有数据，但 RViz 中 Map display 不渲染。
+
+**根因**: 
+1. `nav2_bringup` 的 lifecycle manager 可能创建多个 map_server 实例
+2. RViz Map display 的 Durability Policy 默认 `Volatile`，但 map_server 发布的是 `Transient Local`，不匹配时收不到
+3. `ros2 topic hz /map` 报 `RTPS_READER_HISTORY Error`，因为 map 消息较大（174×132 = 22KB），默认 history payload 只有 11 字节
+
+**修复**:
+- RViz 中 Map display → Topic → Durability Policy 改为 `Transient Local`
+- 多个 map_server 实例不影响功能（所有实例都发布同一份地图，latched topic）
+
+---
+
 ## 当前模型物理参数
 
 | 参数 | 值 | 位置 |
@@ -105,3 +148,70 @@
 | kp（接触刚度） | 1e5 | model.sdf 轮子碰撞体 |
 | kd（接触阻尼） | 10 | model.sdf 轮子碰撞体 |
 | damping（关节阻尼） | 0.5 | model.sdf 轮子关节 |
+
+---
+
+## Bug 11: 导航效果极差（一卡一卡、定位漂移）
+
+**现象**: 
+- 机器人移动一卡一卡，不连续
+- 走着走着 AMCL 定位漂移，雷达点和地图墙壁对不上
+- RViz 中激光扫描与地图错位
+
+**根因**: 多个问题叠加：
+
+1. **relay 与 velocity_smoother 冲突**（主因）
+   - `navigation.launch.py` 中有 relay 节点 `/cmd_vel_nav` → `/cmd_vel`
+   - `velocity_smoother` 也发布 `cmd_vel_smoothed` → `/cmd_vel`
+   - 两个发布者同时往 `/cmd_vel` 发，机器人收到交替的原始和平滑指令，导致抖动
+
+2. **AMCL motion model 错误**（定位漂移主因）
+   - 机器人是 mecanum 全向轮 + planar_move 插件（可侧移）
+   - 但 AMCL 用的是 `DifferentialMotionModel`（差速模型）
+   - 差速模型不理解侧向移动，机器人横移时 AMCL 认为是噪声，粒子发散，定位漂移
+
+3. **behavior_server 参数过期**
+   - 旧格式 `local_costmap_topic`/`local_footprint_topic` → 新格式 `costmap_topic`/`footprint_topic`
+   - `global_frame: map` → `odom`
+   - `transform_tolerance: 1.0` → `0.1`
+
+4. **bt_navigator rclcpp_node 命名不对**
+   - 旧: `bt_navigator_rclcpp_node`
+   - 新: `bt_navigator_navigate_through_poses_rclcpp_node` + `bt_navigator_navigate_to_pose_rclcpp_node`
+
+5. **缺少 smoother_server 配置**
+   - navigation_launch.py 加载了 smoother_server 节点但没有参数
+
+6. **velocity_smoother 多余参数**
+   - `enable_stamped_cmd_vel: true` 在 Humble 默认配置中不存在
+
+**修复**:
+- `navigation.launch.py`: 删除 relay 节点
+- `nav2_params.yaml`:
+  - AMCL: `DifferentialMotionModel` → `OmniMotionModel`（注意不是 `OmniDirectionalMotionModel`，那个不存在）
+  - behavior_server: 改用 Humble 参数名，`global_frame: odom`，`transform_tolerance: 0.1`
+  - bt_navigator: rclcpp_node 拆成两个
+  - controller_server: `transform_tolerance: 0.2`
+  - velocity_smoother: 删除 `enable_stamped_cmd_vel`
+  - 新增 `smoother_server` 配置段
+
+---
+
+## Bug 12: 容器重启后 Gazebo 丢失
+
+**现象**: `docker compose down && up` 后容器内没有 Gazebo。
+
+**根因**: Docker 镜像是 `robotis/turtlebot3:humble-latest`，不含 Gazebo。旧容器内手动安装过，重建容器后丢失。
+
+**修复**: `apt-get install -y ros-humble-gazebo-ros-pkgs`（安装 gazebo + gazebo_ros 插件）
+
+---
+
+## Bug 13: 轮子不转（未解决）
+
+**现象**: 机器人可以移动，但 4 个轮子视觉上没有转动。
+
+**状态**: 待排查，可能原因：
+- SDF 中轮子 joint 的 axis 方向不对
+- `libgazebo_ros_planar_move.so` 插件不驱动关节旋转，只移动整体（关节旋转依赖 `libgazebo_ros_joint_state_publisher.so`）
+- joint state publisher 与模拟运动不同步

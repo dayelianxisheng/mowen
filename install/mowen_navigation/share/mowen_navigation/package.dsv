@@ -1,0 +1,8 @@
+source;share/mowen_navigation/hook/cmake_prefix_path.ps1
+source;share/mowen_navigation/hook/cmake_prefix_path.dsv
+source;share/mowen_navigation/hook/cmake_prefix_path.sh
+source;share/mowen_navigation/local_setup.bash
+source;share/mowen_navigation/local_setup.dsv
+source;share/mowen_navigation/local_setup.ps1
+source;share/mowen_navigation/local_setup.sh
+source;share/mowen_navigation/local_setup.zsh

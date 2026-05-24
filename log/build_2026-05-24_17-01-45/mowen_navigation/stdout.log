@@ -1,0 +1,40 @@
+-- The C compiler identification is GNU 13.3.0
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found ament_cmake: 2.5.6 (/opt/ros/jazzy/share/ament_cmake/cmake)
+-- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter 
+-- Configuring done (0.7s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/qc/resource/code/ros2/mowen/build/mowen_navigation
+-- Install configuration: ""
+-- Installing: /home/qc/resource/code/ros2/mowen/install/mowen_navigation/share/mowen_navigation/config
+-- Installing: /home/qc/resource/code/ros2/mowen/install/mowen_navigation/share/mowen_navigation/config/nav2_params.yaml
+-- Installing: /home/qc/resource/code/ros2/mowen/install/mowen_navigation/share/mowen_navigation/launch
+-- Installing: /home/qc/resource/code/ros2/mowen/install/mowen_navigation/share/mowen_navigation/launch/navigation.launch.py
+-- Installing: /home/qc/resource/code/ros2/mowen/install/mowen_navigation/share/mowen_navigation/map
+-- Installing: /home/qc/resource/code/ros2/mowen/install/mowen_navigation/share/mowen_navigation/map/map.pgm
+-- Installing: /home/qc/resource/code/ros2/mowen/install/mowen_navigation/share/mowen_navigation/map/map.yaml
+-- Installing: /home/qc/resource/code/ros2/mowen/install/mowen_navigation/share/ament_index/resource_index/package_run_dependencies/mowen_navigation
+-- Installing: /home/qc/resource/code/ros2/mowen/install/mowen_navigation/share/ament_index/resource_index/parent_prefix_path/mowen_navigation
+-- Installing: /home/qc/resource/code/ros2/mowen/install/mowen_navigation/share/mowen_navigation/environment/ament_prefix_path.sh
+-- Installing: /home/qc/resource/code/ros2/mowen/install/mowen_navigation/share/mowen_navigation/environment/ament_prefix_path.dsv
+-- Installing: /home/qc/resource/code/ros2/mowen/install/mowen_navigation/share/mowen_navigation/environment/path.sh
+-- Installing: /home/qc/resource/code/ros2/mowen/install/mowen_navigation/share/mowen_navigation/environment/path.dsv
+-- Installing: /home/qc/resource/code/ros2/mowen/install/mowen_navigation/share/mowen_navigation/local_setup.bash
+-- Installing: /home/qc/resource/code/ros2/mowen/install/mowen_navigation/share/mowen_navigation/local_setup.sh
+-- Installing: /home/qc/resource/code/ros2/mowen/install/mowen_navigation/share/mowen_navigation/local_setup.zsh
+-- Installing: /home/qc/resource/code/ros2/mowen/install/mowen_navigation/share/mowen_navigation/local_setup.dsv
+-- Installing: /home/qc/resource/code/ros2/mowen/install/mowen_navigation/share/mowen_navigation/package.dsv
+-- Installing: /home/qc/resource/code/ros2/mowen/install/mowen_navigation/share/ament_index/resource_index/packages/mowen_navigation
+-- Installing: /home/qc/resource/code/ros2/mowen/install/mowen_navigation/share/mowen_navigation/cmake/mowen_navigationConfig.cmake
+-- Installing: /home/qc/resource/code/ros2/mowen/install/mowen_navigation/share/mowen_navigation/cmake/mowen_navigationConfig-version.cmake
+-- Installing: /home/qc/resource/code/ros2/mowen/install/mowen_navigation/share/mowen_navigation/package.xml

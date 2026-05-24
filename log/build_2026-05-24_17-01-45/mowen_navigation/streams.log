@@ -1,0 +1,46 @@
+[0.010s] Invoking command in '/home/qc/resource/code/ros2/mowen/build/mowen_navigation': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/qc/resource/code/ros2/mowen/src/mowen_navigation -DCMAKE_INSTALL_PREFIX=/home/qc/resource/code/ros2/mowen/install/mowen_navigation
+[0.106s] -- The C compiler identification is GNU 13.3.0
+[0.184s] -- The CXX compiler identification is GNU 13.3.0
+[0.202s] -- Detecting C compiler ABI info
+[0.290s] -- Detecting C compiler ABI info - done
+[0.295s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.296s] -- Detecting C compile features
+[0.296s] -- Detecting C compile features - done
+[0.305s] -- Detecting CXX compiler ABI info
+[0.398s] -- Detecting CXX compiler ABI info - done
+[0.404s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.404s] -- Detecting CXX compile features
+[0.404s] -- Detecting CXX compile features - done
+[0.431s] -- Found ament_cmake: 2.5.6 (/opt/ros/jazzy/share/ament_cmake/cmake)
+[0.540s] -- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter 
+[0.692s] -- Configuring done (0.7s)
+[0.694s] -- Generating done (0.0s)
+[0.696s] -- Build files have been written to: /home/qc/resource/code/ros2/mowen/build/mowen_navigation
+[0.701s] Invoked command in '/home/qc/resource/code/ros2/mowen/build/mowen_navigation' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/qc/resource/code/ros2/mowen/src/mowen_navigation -DCMAKE_INSTALL_PREFIX=/home/qc/resource/code/ros2/mowen/install/mowen_navigation
+[0.702s] Invoking command in '/home/qc/resource/code/ros2/mowen/build/mowen_navigation': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/qc/resource/code/ros2/mowen/build/mowen_navigation -- -j32 -l32
+[0.740s] Invoked command in '/home/qc/resource/code/ros2/mowen/build/mowen_navigation' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/qc/resource/code/ros2/mowen/build/mowen_navigation -- -j32 -l32
+[0.747s] Invoking command in '/home/qc/resource/code/ros2/mowen/build/mowen_navigation': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/qc/resource/code/ros2/mowen/build/mowen_navigation
+[0.756s] -- Install configuration: ""
+[0.756s] -- Installing: /home/qc/resource/code/ros2/mowen/install/mowen_navigation/share/mowen_navigation/config
+[0.756s] -- Installing: /home/qc/resource/code/ros2/mowen/install/mowen_navigation/share/mowen_navigation/config/nav2_params.yaml
+[0.756s] -- Installing: /home/qc/resource/code/ros2/mowen/install/mowen_navigation/share/mowen_navigation/launch
+[0.756s] -- Installing: /home/qc/resource/code/ros2/mowen/install/mowen_navigation/share/mowen_navigation/launch/navigation.launch.py
+[0.756s] -- Installing: /home/qc/resource/code/ros2/mowen/install/mowen_navigation/share/mowen_navigation/map
+[0.756s] -- Installing: /home/qc/resource/code/ros2/mowen/install/mowen_navigation/share/mowen_navigation/map/map.pgm
+[0.756s] -- Installing: /home/qc/resource/code/ros2/mowen/install/mowen_navigation/share/mowen_navigation/map/map.yaml
+[0.756s] -- Installing: /home/qc/resource/code/ros2/mowen/install/mowen_navigation/share/ament_index/resource_index/package_run_dependencies/mowen_navigation
+[0.757s] -- Installing: /home/qc/resource/code/ros2/mowen/install/mowen_navigation/share/ament_index/resource_index/parent_prefix_path/mowen_navigation
+[0.757s] -- Installing: /home/qc/resource/code/ros2/mowen/install/mowen_navigation/share/mowen_navigation/environment/ament_prefix_path.sh
+[0.757s] -- Installing: /home/qc/resource/code/ros2/mowen/install/mowen_navigation/share/mowen_navigation/environment/ament_prefix_path.dsv
+[0.757s] -- Installing: /home/qc/resource/code/ros2/mowen/install/mowen_navigation/share/mowen_navigation/environment/path.sh
+[0.757s] -- Installing: /home/qc/resource/code/ros2/mowen/install/mowen_navigation/share/mowen_navigation/environment/path.dsv
+[0.757s] -- Installing: /home/qc/resource/code/ros2/mowen/install/mowen_navigation/share/mowen_navigation/local_setup.bash
+[0.757s] -- Installing: /home/qc/resource/code/ros2/mowen/install/mowen_navigation/share/mowen_navigation/local_setup.sh
+[0.757s] -- Installing: /home/qc/resource/code/ros2/mowen/install/mowen_navigation/share/mowen_navigation/local_setup.zsh
+[0.757s] -- Installing: /home/qc/resource/code/ros2/mowen/install/mowen_navigation/share/mowen_navigation/local_setup.dsv
+[0.757s] -- Installing: /home/qc/resource/code/ros2/mowen/install/mowen_navigation/share/mowen_navigation/package.dsv
+[0.758s] -- Installing: /home/qc/resource/code/ros2/mowen/install/mowen_navigation/share/ament_index/resource_index/packages/mowen_navigation
+[0.758s] -- Installing: /home/qc/resource/code/ros2/mowen/install/mowen_navigation/share/mowen_navigation/cmake/mowen_navigationConfig.cmake
+[0.758s] -- Installing: /home/qc/resource/code/ros2/mowen/install/mowen_navigation/share/mowen_navigation/cmake/mowen_navigationConfig-version.cmake
+[0.758s] -- Installing: /home/qc/resource/code/ros2/mowen/install/mowen_navigation/share/mowen_navigation/package.xml
+[0.759s] Invoked command in '/home/qc/resource/code/ros2/mowen/build/mowen_navigation' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/qc/resource/code/ros2/mowen/build/mowen_navigation
