@@ -12,3 +12,5 @@ scripts/
 build/
 install/
 log/
+.env
+docker/workspace/*

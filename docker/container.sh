@@ -11,7 +11,7 @@ start_container() {
         xhost +local:docker || true
     fi
     echo "Starting Mowen container..."
-    docker compose -f "${SCRIPT_DIR}/docker-compose.yml" pull
+    docker compose -f "${SCRIPT_DIR}/docker-compose.yml" build
     docker compose -f "${SCRIPT_DIR}/docker-compose.yml" up -d
 }
 
