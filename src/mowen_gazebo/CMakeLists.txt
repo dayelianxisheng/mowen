@@ -1,14 +1,10 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.0.2)
 project(mowen_gazebo)
 
-if(NOT CMAKE_CXX_STANDARD)
-  set(CMAKE_CXX_STANDARD 17)
-endif()
+find_package(catkin REQUIRED)
 
-find_package(ament_cmake REQUIRED)
+catkin_package()
 
 install(DIRECTORY launch models rviz urdf worlds
-  DESTINATION share/${PROJECT_NAME}
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
-
-ament_package()

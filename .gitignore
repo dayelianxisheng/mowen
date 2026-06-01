@@ -8,3 +8,7 @@ __pycache__/
 scripts/
 *.bak
 
+.idea/
+build/
+install/
+log/

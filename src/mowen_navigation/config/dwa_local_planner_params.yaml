@@ -1,0 +1,48 @@
+DWAPlannerROS:
+  # Velocity limits (mecanum: supports y velocity for lateral movement)
+  max_vel_x: 0.3
+  min_vel_x: 0.0
+  max_vel_y: 0.3
+  min_vel_y: -0.3
+  max_vel_theta: 1.0
+  min_vel_theta: -1.0
+
+  # Acceleration limits
+  acc_lim_x: 2.5
+  acc_lim_y: 2.5
+  acc_lim_theta: 3.2
+
+  # Goal tolerance
+  xy_goal_tolerance: 0.25
+  yaw_goal_tolerance: 0.25
+  latch_xy_goal_tolerance: false
+
+  # Forward simulation
+  sim_time: 2.0
+  sim_granularity: 0.025
+  vx_samples: 20
+  vy_samples: 20
+  vtheta_samples: 40
+  controller_frequency: 20.0
+
+  # Path scoring
+  path_distance_bias: 32.0
+  goal_distance_bias: 24.0
+  occdist_scale: 0.02
+
+  # Oscillation prevention
+  oscillation_reset_dist: 0.05
+
+  # Holonomic robot (Mecanum)
+  holonomic_robot: true
+  y_vels: [-0.3, -0.2, -0.1, 0.0, 0.1, 0.2, 0.3]
+
+  # Prune plan
+  prune_plan: true
+
+  # Stop time buffer
+  stop_time_buffer: 0.2
+
+  # Trans stopped velocity
+  trans_stopped_vel: 0.1
+  theta_stopped_vel: 0.1

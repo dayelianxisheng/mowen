@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="use_sim_time" default="true"/>
+  <arg name="x_pose" default="0.0"/>
+  <arg name="y_pose" default="0.0"/>
+
+  <!-- 设置 GAZEBO 环境变量 -->
+  <env name="GAZEBO_MODEL_PATH"
+       value="$(find mowen_gazebo)/models:$(optenv GAZEBO_MODEL_PATH)"/>
+  <env name="GAZEBO_PLUGIN_PATH"
+       value="/opt/ros/melodic/lib:$(optenv GAZEBO_PLUGIN_PATH)"/>
+
+  <!-- 启动 Gazebo 带墙壁的世界 -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find mowen_gazebo)/worlds/mowen_world.world"/>
+    <arg name="use_sim_time" value="$(arg use_sim_time)"/>
+  </include>
+
+  <!-- 发布机器人 TF -->
+  <include file="$(find mowen_gazebo)/launch/robot_state_publisher.launch">
+    <arg name="use_sim_time" value="$(arg use_sim_time)"/>
+  </include>
+
+  <!-- 在 Gazebo 中生成机器人 -->
+  <include file="$(find mowen_gazebo)/launch/spawn_mowen.launch">
+    <arg name="x_pose" value="$(arg x_pose)"/>
+    <arg name="y_pose" value="$(arg y_pose)"/>
+  </include>
+</launch>

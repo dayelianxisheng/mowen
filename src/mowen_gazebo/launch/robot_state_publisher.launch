@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="use_sim_time" default="true"/>
+
+  <param name="robot_description" textfile="$(find mowen_gazebo)/urdf/mowen.urdf"/>
+
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen">
+    <param name="use_sim_time" value="$(arg use_sim_time)"/>
+  </node>
+</launch>

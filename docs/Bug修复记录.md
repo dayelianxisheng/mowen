@@ -215,3 +215,25 @@
 - SDF 中轮子 joint 的 axis 方向不对
 - `libgazebo_ros_planar_move.so` 插件不驱动关节旋转，只移动整体（关节旋转依赖 `libgazebo_ros_joint_state_publisher.so`）
 - joint state publisher 与模拟运动不同步
+
+---
+
+## 2026-06-01: ROS2 → ROS1 项目迁移
+
+**变更**: 整个项目从 ROS2 Humble 迁移到 ROS1 Melodic。
+
+**原因**: 
+- 目标运行环境为 ROS1
+- 宿主机 Ubuntu 24.04 与直接拉取的 ROS1 镜像存在 Gazebo/RViz 兼容性问题
+- 通过 Docker (Ubuntu 18.04 + ROS Melodic) 解决
+
+**变更摘要**:
+- Docker: ubuntu:18.04 基础镜像 + ROS Melodic 手动安装
+- 构建系统: ament_cmake → catkin, colcon → catkin_make
+- Launch: 7 个 .launch.py → .launch XML
+- 导航: Nav2 → move_base + AMCL + map_server
+- SDF: 3 个 Gazebo 插件 ROS2→ROS1 格式修正
+- RViz: 类名 + QoS 清理
+- 新增 `docs/MIGRATION.md` 详细迁移说明
+
+详见: `docs/MIGRATION.md`

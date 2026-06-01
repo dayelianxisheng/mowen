@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="use_sim_time" default="true"/>
+  <arg name="map_file" default="$(find mowen_navigation)/map/map.yaml"/>
+  <arg name="open_rviz" default="true"/>
+
+  <!-- 地图服务器 -->
+  <node name="map_server" pkg="map_server" type="map_server"
+        args="$(arg map_file)">
+    <param name="use_sim_time" value="$(arg use_sim_time)"/>
+  </node>
+
+  <!-- AMCL 定位 (全向运动模型) -->
+  <node name="amcl" pkg="amcl" type="amcl" output="screen">
+    <rosparam file="$(find mowen_navigation)/config/amcl_params.yaml" command="load"/>
+    <param name="use_sim_time" value="$(arg use_sim_time)"/>
+  </node>
+
+  <!-- Move Base (全局+局部规划器 + 恢复行为) -->
+  <node name="move_base" pkg="move_base" type="move_base" output="screen">
+    <rosparam file="$(find mowen_navigation)/config/costmap_common_params.yaml"
+              command="load" ns="global_costmap"/>
+    <rosparam file="$(find mowen_navigation)/config/costmap_common_params.yaml"
+              command="load" ns="local_costmap"/>
+    <rosparam file="$(find mowen_navigation)/config/local_costmap_params.yaml"
+              command="load"/>
+    <rosparam file="$(find mowen_navigation)/config/global_costmap_params.yaml"
+              command="load"/>
+    <rosparam file="$(find mowen_navigation)/config/move_base_params.yaml"
+              command="load"/>
+    <rosparam file="$(find mowen_navigation)/config/dwa_local_planner_params.yaml"
+              command="load"/>
+    <param name="use_sim_time" value="$(arg use_sim_time)"/>
+  </node>
+
+  <!-- RViz 可视化 -->
+  <node if="$(arg open_rviz)" name="rviz" pkg="rviz" type="rviz"
+        args="-d $(find mowen_cartographer)/rviz/mowen_cartographer.rviz">
+    <param name="use_sim_time" value="$(arg use_sim_time)"/>
+  </node>
+</launch>

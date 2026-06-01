@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="use_sim_time" default="false"/>
+  <arg name="use_rviz" default="true"/>
+  <arg name="config_dir" default="$(find mowen_cartographer)/config"/>
+  <arg name="config_basename" default="mowen_lds_2d.lua"/>
+
+  <node name="cartographer_node" pkg="cartographer_ros" type="cartographer_node"
+        output="screen"
+        args="-configuration_directory $(arg config_dir)
+              -configuration_basename $(arg config_basename)">
+    <param name="use_sim_time" value="$(arg use_sim_time)"/>
+  </node>
+
+  <include file="$(find mowen_cartographer)/launch/occupancy_grid.launch">
+    <arg name="use_sim_time" value="$(arg use_sim_time)"/>
+  </include>
+
+  <node if="$(arg use_rviz)" name="rviz" pkg="rviz" type="rviz"
+        args="-d $(find mowen_cartographer)/rviz/mowen_cartographer.rviz">
+    <param name="use_sim_time" value="$(arg use_sim_time)"/>
+  </node>
+</launch>

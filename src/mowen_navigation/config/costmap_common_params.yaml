@@ -1,0 +1,27 @@
+# Costmap common parameters (loaded into both global and local costmaps)
+robot_radius: 0.2
+footprint_padding: 0.01
+transform_tolerance: 1.0
+map_type: costmap
+
+obstacle_layer:
+  enabled: true
+  observation_sources: scan
+  scan:
+    topic: /scan
+    max_obstacle_height: 2.0
+    clearing: true
+    marking: true
+    data_type: LaserScan
+    raytrace_max_range: 3.0
+    raytrace_min_range: 0.0
+    obstacle_max_range: 2.5
+    obstacle_min_range: 0.0
+
+inflation_layer:
+  enabled: true
+  inflation_radius: 1.0
+  cost_scaling_factor: 3.0
+
+static_layer:
+  enabled: true

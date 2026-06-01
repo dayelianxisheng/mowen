@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="x_pose" default="0.0"/>
+  <arg name="y_pose" default="0.0"/>
+  <arg name="z_pose" default="0.01"/>
+
+  <node name="spawn_mowen" pkg="gazebo_ros" type="spawn_model"
+        args="-file $(find mowen_gazebo)/models/mowen/model.sdf -sdf
+              -model mowen -x $(arg x_pose) -y $(arg y_pose) -z $(arg z_pose)"
+        output="screen"/>
+</launch>
