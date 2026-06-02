@@ -124,6 +124,23 @@ Visualization Manager:
         Value: /map
       Value: true
     - Alpha: 1
+      Buffer Length: 1
+      Class: rviz/Path
+      Color: 0; 255; 0
+      Enabled: true
+      Name: Global Plan
+      Topic:
+        Value: /move_base/NavfnROS/plan
+      Value: true
+    - Alpha: 1
+      Class: rviz/Path
+      Color: 255; 0; 0
+      Enabled: true
+      Name: Local Plan
+      Topic:
+        Value: /move_base/DWAPlannerROS/local_plan
+      Value: true
+    - Alpha: 1
       Class: rviz/RobotModel
       Collision Enabled: false
       Description File: ""
@@ -205,7 +222,7 @@ Visualization Manager:
         Value: /initialpose
     - Class: rviz/SetGoal
       Topic:
-        Value: /goal_pose
+        Value: /move_base_simple/goal
   Transformation:
     Current:
       Class: rviz/TF

@@ -5,7 +5,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 # ============================================================
 # 1. 替换为清华 apt 镜像源 + 安装 ROS Melodic
 # ============================================================
-RUN sed -i 's|http://archive.ubuntu.com|http://mirrors.tuna.tsinghua.edu.cn|g' /etc/apt/sources.list \
+RUN unset http_proxy https_proxy HTTP_PROXY HTTPS_PROXY \
+    && sed -i 's|http://archive.ubuntu.com|http://mirrors.tuna.tsinghua.edu.cn|g' /etc/apt/sources.list \
     && sed -i 's|http://security.ubuntu.com|http://mirrors.tuna.tsinghua.edu.cn|g' /etc/apt/sources.list \
     && apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
@@ -20,14 +21,16 @@ RUN sed -i 's|http://archive.ubuntu.com|http://mirrors.tuna.tsinghua.edu.cn|g' /
 # ============================================================
 # 2. ROS Melodic Desktop-Full (含 Gazebo 9 + RViz)
 # ============================================================
-RUN apt-get install -y --no-install-recommends \
+RUN unset http_proxy https_proxy HTTP_PROXY HTTPS_PROXY \
+    && apt-get install -y --no-install-recommends \
     ros-melodic-desktop-full \
     && rm -rf /var/lib/apt/lists/*
 
 # ============================================================
 # 3. 补充项目所需的 ROS 包
 # ============================================================
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN unset http_proxy https_proxy HTTP_PROXY HTTPS_PROXY \
+    && apt-get update && apt-get install -y --no-install-recommends \
     ros-melodic-gazebo-ros-pkgs \
     ros-melodic-gazebo-ros-control \
     ros-melodic-ros-control \
