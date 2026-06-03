@@ -1,118 +1,92 @@
 # mowen_radar_fusion — 雷达-相机数据级融合
 
-基于 CRF-Net 思想，将毫米波雷达目标投影到相机图像平面，实现传感器数据级融合。
+基于 CRF-Net 的毫米波雷达-相机融合 + Faster R-CNN 目标检测。
+
+## 快速启动
+
+```bash
+# 进入 ROS2 容器
+cd /home/qcqc/resource/code/eai/mowen/docker-ros2
+./container.sh start && ./container.sh enter
+
+# 构建
+source /opt/ros/humble/setup.bash
+cd /root/mowen_ws
+colcon build --symlink-install
+source install/setup.bash
+
+# 清理旧 Gazebo 进程
+pkill -9 -f gzserver; pkill -9 -f gzclient; sleep 1
+
+# 启动完整管线（Gazebo + 场景 + 所有节点）
+ros2 launch mowen_radar_fusion radar_fusion.launch.py
+```
+
+## 常用命令
+
+```bash
+# ---- 查看话题 ----
+ros2 topic list
+
+# ---- 键盘控制小车 ----
+ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args -r cmd_vel:=/cmd_vel
+
+# ---- 查看检测结果 ----
+ros2 run rqt_image_view rqt_image_view          # 选 /detection_image
+ros2 run rqt_image_view rqt_image_view          # 选 /camera/image_radar
+
+# ---- 打开 RViz ----
+rviz2 -d /root/mowen_ws/src/mowen_radar_fusion/rviz/radar_fusion.rviz
+
+# ---- 调试：检查话题发布 ----
+ros2 topic hz /rgb_camera/image_raw
+ros2 topic hz /radar/scan
+ros2 topic echo /odom | grep "angular"
+
+# ---- 清理并重启 ----
+pkill -9 -f gzserver; pkill -9 -f gzclient; sleep 1
+rm -rf ~/.gazebo/models
+ros2 launch mowen_radar_fusion radar_fusion.launch.py
+```
+
+## 话题
+
+| 话题 | 类型 | 说明 |
+|------|------|------|
+| `/rgb_camera/image_raw` | Image | 相机原始画面 |
+| `/camera/image_radar` | Image | 叠加雷达投影线 |
+| `/detection_image` | Image | CNN 检测结果（框+标签） |
+| `/detections` | Detection2DArray | 检测结果消息 |
+| `/radar/scan` | LaserScan | 毫米波雷达仿真 |
+| `/radar/targets` | RadarTargetArray | 雷达目标列表 |
+| `/scan` | LaserScan | LiDAR 扫描 |
+| `/odom` | Odometry | 里程计 |
+| `/cmd_vel` | Twist | 速度控制 |
 
 ## 架构
 
 ```
 Gazebo 仿真
 ├── /radar/scan    (LaserScan, 10束, ±40°, 0.5-35m)
-├── /camera/image_raw (RGB 640x480, 30Hz)
-└── /camera/camera_info
+├── /rgb_camera/image_raw (RGB 640x480, 30Hz)
+└── /scan          (LiDAR 360°)
 
         ↓
-
-radar_sim_node.py
-   LaserScan → RadarTargetArray → /radar/targets
-
-radar_camera_projector.py
-   /radar/targets + /camera/image_raw + /camera/camera_info
-        ↓
-   雷达球坐标 → 笛卡尔 → TF变换 → 像素坐标 → 投影线
-        ↓
-   /camera/image_radar (增强图像)
-
-fusion_visualizer_node.py
-   /camera/image_raw + /camera/image_radar → 双窗口显示
+radar_sim_node         → /radar/targets
+radar_camera_projector → /camera/image_radar
+radar_detector         → /detection_image, /detections
+fusion_visualizer_node → /camera/fusion_display
 ```
 
-## 传感器布局
+## 场景
 
-```
-        前方 →
-┌─────────────────────────────┐
-│  📶 radar (0.15, 0, 0.18)    │  ← 毫米波雷达
-│  📷 camera (0.149, 0, 0.20)  │  ← RGB-D 相机
-│  📡 LiDAR (0.134, 0, 0.136)  │  ← 激光雷达
-│        ┌───────────┐         │
-│        │  mowen    │         │
-│        │  chassis  │         │
-│        └───────────┘         │
-└─────────────────────────────┘
-         base_link
-```
+- `models/scene.world` — 封闭房间 + person/car/table
+- `models/cafe_models/` — COCO 物体模型库（person、hatchback、table 等）
 
-## 快速启动
+## 传感器布局 (相对 base_link)
 
-```bash
-# 1. 编译
-cd /home/qc/resource/code/ros2/mowen
-colcon build --packages-select mowen_radar_fusion
-source install/setup.bash
-
-# 2. 启动 Gazebo 仿真
-ros2 launch mowen_gazebo mowen_world.launch.py
-
-# 3. 启动雷达融合
-ros2 launch mowen_radar_fusion radar_fusion.launch.py
-```
-
-## 话题
-
-| 话题 | 类型 | 发布者 |
-|------|------|--------|
-| `/radar/scan` | LaserScan | Gazebo (libgazebo_ros_ray_sensor) |
-| `/radar/targets` | RadarTargetArray | radar_sim_node |
-| `/rgb_camera/image_raw` | Image | Gazebo (libgazebo_ros_camera) |
-| `/rgb_camera/camera_info` | CameraInfo | Gazebo (libgazebo_ros_camera) |
-| `/camera/image_radar` | Image | radar_camera_projector |
-| `/camera/radar_overlay` | Image | radar_camera_projector |
-
-## TF 树
-
-```
-base_link
-├── radar_link      (雷达传感器)
-├── camera_link → camera_optical  (相机，ROS REP 103)
-├── laser_link      (LiDAR)
-└── imu_link        (IMU)
-```
-
-## 参数配置
-
-详见 `config/sensor_params.yaml`
-
-## 核心算法
-
-### 雷达→相机投影
-
-```
-1. 雷达球坐标 → 笛卡尔坐标:
-   x = range * cos(azimuth) * cos(elevation)
-   y = range * sin(azimuth) * cos(elevation)
-   z = range * sin(elevation)
-
-2. 雷达坐标 → 相机坐标 (TF 变换):
-   pt_cam = R * pt_radar + t
-
-3. 相机坐标 → 像素坐标 (内参投影):
-   px = K * pt_cam
-   u = px[0] / px[2], v = px[1] / px[2]
-```
-
-### CRF-Net 风格的投影线
-
-```
-每个雷达点 → 底部像素 (z = radar_height_min)
-           → 顶部像素 (z = radar_height_max)
-           → 在图像上画垂直线
-线的颜色 = 根据距离编码 (近红远蓝)
-```
-
-## SDF 修改规则
-
-**任何对 `model.sdf` 的修改必须通过 Python 脚本完成，禁止手动编辑 XML。**
-
-修改脚本放在 `/home/qc/resource/code/ros2/mowen/scripts/` 目录下。
-
-当前传感器配置脚本: `scripts/add_radar_and_camera_sensors.py`
+| 传感器 | 位置 (x,y,z) |
+|--------|-------------|
+| radar  | 0.15, 0, 0.18 |
+| camera | 0.149, 0, 0.20 |
+| LiDAR  | 0.134, 0, 0.136 |

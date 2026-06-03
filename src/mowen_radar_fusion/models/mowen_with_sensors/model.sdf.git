@@ -177,8 +177,8 @@
           <upper>inf</upper>
         </limit>
         <dynamics>
-          <damping>0.5</damping>
-          <friction>50.0</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
         </dynamics>
       </axis>
     </joint>
@@ -201,7 +201,7 @@
         <friction>
           <ode>
             <mu>0.3</mu>
-            <mu2>0.005</mu2>
+            <mu2>0.02</mu2>
           </ode>
         </friction>
         <contact>
@@ -249,8 +249,8 @@
           <upper>inf</upper>
         </limit>
         <dynamics>
-          <damping>0.5</damping>
-          <friction>50.0</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
         </dynamics>
       </axis>
     </joint>
@@ -273,7 +273,7 @@
         <friction>
           <ode>
             <mu>0.3</mu>
-            <mu2>0.005</mu2>
+            <mu2>0.02</mu2>
           </ode>
         </friction>
         <contact>
@@ -321,8 +321,8 @@
           <upper>inf</upper>
         </limit>
         <dynamics>
-          <damping>0.5</damping>
-          <friction>50.0</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
         </dynamics>
       </axis>
     </joint>
@@ -345,7 +345,7 @@
         <friction>
           <ode>
             <mu>0.3</mu>
-            <mu2>0.005</mu2>
+            <mu2>0.02</mu2>
           </ode>
         </friction>
         <contact>
@@ -393,8 +393,8 @@
           <upper>inf</upper>
         </limit>
         <dynamics>
-          <damping>0.5</damping>
-          <friction>50.0</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
         </dynamics>
       </axis>
     </joint>
@@ -417,7 +417,7 @@
         <friction>
           <ode>
             <mu>0.3</mu>
-            <mu2>0.005</mu2>
+            <mu2>0.02</mu2>
           </ode>
         </friction>
         <contact>

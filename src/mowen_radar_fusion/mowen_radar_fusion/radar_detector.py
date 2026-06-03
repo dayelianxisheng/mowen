@@ -29,11 +29,13 @@ class RadarGuidedDetector(Node):
 
         self.bridge = CvBridge()
 
-        # 预训练 Faster R-CNN
+        # 预训练 Faster R-CNN (COCO)
         self.get_logger().info("Loading Faster R-CNN (ResNet-50)...")
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+        # 使用新版 torchvision API (pretrained=已废弃)
+        weights = torchvision.models.detection.FasterRCNN_ResNet50_FPN_Weights.COCO_V1
         self.model = torchvision.models.detection.fasterrcnn_resnet50_fpn(
-            pretrained=True,
+            weights=weights,
             box_score_thresh=0.3
         )
         self.model.to(self.device)

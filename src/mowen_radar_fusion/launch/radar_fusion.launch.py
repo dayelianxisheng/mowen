@@ -33,6 +33,7 @@ def generate_launch_description():
     use_sim_time = LaunchConfiguration('use_sim_time', default='true')
     x_pose = LaunchConfiguration('x_pose', default='0.0')
     y_pose = LaunchConfiguration('y_pose', default='0.0')
+    yaw = LaunchConfiguration('yaw', default='1.57')
     # 世界选择: warehouse (默认) / mowen / empty
     world_choice = LaunchConfiguration('world', default='warehouse')
 
@@ -44,15 +45,14 @@ def generate_launch_description():
     with open(urdf_path, 'r') as f:
         robot_desc = f.read()
 
-    # ---- 仓库世界文件 (aws-robomaker) ----
-    WAREHOUSE_DIR = '/tmp/aws-robomaker-small-warehouse-world'
-    warehouse_world = os.path.join(pkg_mowen_gazebo, 'worlds', 'simple_world.world')
+    # ---- 世界文件 ----
+    warehouse_world = os.path.join(pkg_mowen_radar, 'models', 'scene.world')
 
     # ---- Gazebo 路径配置 ----
     gazebo_model_path = os.pathsep.join([
-        os.path.join(pkg_mowen_radar, 'models'),          # mowen_with_sensors 模型
-        os.path.join(pkg_mowen_gazebo, 'models'),         # mowen_common 网格文件
-        os.path.join(WAREHOUSE_DIR, 'models'),            # 仓库模型
+        os.path.join(pkg_mowen_radar, 'models'),
+        os.path.join(pkg_mowen_radar, 'models', 'cafe_models'),
+        os.path.join(pkg_mowen_gazebo, 'models'),
         '/opt/ros/humble/share/gazebo_ros/models',
         '/usr/share/gazebo-11/models',
     ])
@@ -107,7 +107,7 @@ def generate_launch_description():
             '-file', sdf_path,
             '-x', x_pose,
             '-y', y_pose,
-            '-z', '0.2'
+            '-z', '0.01'
         ],
         output='screen',
     )
@@ -152,6 +152,7 @@ def generate_launch_description():
         DeclareLaunchArgument('use_sim_time', default_value='true'),
         DeclareLaunchArgument('x_pose', default_value='0.0'),
         DeclareLaunchArgument('y_pose', default_value='0.0'),
+        DeclareLaunchArgument('yaw', default_value='0.0'),
         gzserver_cmd,
         gzclient_cmd,
         robot_state_publisher_cmd,

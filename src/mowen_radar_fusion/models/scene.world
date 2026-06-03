@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<sdf version="1.6">
+  <world name="radar_fusion_test">
+    <include><uri>model://sun</uri></include>
+    <include><uri>model://ground_plane</uri></include>
+
+    <!-- 四面墙壁 10x10m -->
+    <model name="wall_n"><static>true</static><link name="l"><collision name="c"><geometry><box><size>10 0.15 3</size></box></geometry></collision><visual name="v"><geometry><box><size>10 0.15 3</size></box></geometry></visual></link><pose>0 5 1.5 0 0 0</pose></model>
+    <model name="wall_s"><static>true</static><link name="l"><collision name="c"><geometry><box><size>10 0.15 3</size></box></geometry></collision><visual name="v"><geometry><box><size>10 0.15 3</size></box></geometry></visual></link><pose>0 -5 1.5 0 0 0</pose></model>
+    <model name="wall_e"><static>true</static><link name="l"><collision name="c"><geometry><box><size>0.15 10 3</size></box></geometry></collision><visual name="v"><geometry><box><size>0.15 10 3</size></box></geometry></visual></link><pose>5 0 1.5 0 0 0</pose></model>
+    <model name="wall_w"><static>true</static><link name="l"><collision name="c"><geometry><box><size>0.15 10 3</size></box></geometry></collision><visual name="v"><geometry><box><size>0.15 10 3</size></box></geometry></visual></link><pose>-5 0 1.5 0 0 0</pose></model>
+
+    <!-- COCO 物体 -->
+    <include><uri>model://person_standing</uri><pose>2 1.5 0 0 0 1.57</pose></include>
+    <include><uri>model://person_walking</uri><pose>-1.5 -2 0 0 0 0.5</pose></include>
+    <include><uri>model://hatchback_red</uri><pose>3 -3 0 0 0 0</pose></include>
+    <include><uri>model://cafe_table</uri><pose>3.5 -1.5 0 0 0 0</pose></include>
+  </world>
+</sdf>

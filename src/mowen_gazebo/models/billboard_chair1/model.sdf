@@ -7,10 +7,10 @@
         <pose>0 0 0.5 0 0 0</pose>
         <geometry><box><size>0.8 0.01 1.0</size></box></geometry>
         <material>
-          <ambient>1 1 1 1</ambient>
-          <diffuse>1 1 1 1</diffuse>
-          <specular>0 0 0 1</specular>
-          <emissive>0 0 0 1</emissive>
+          <script>
+            <uri>file:///root/mowen_ws/src/mowen_gazebo/models/billboard_chair1/materials/textures/chair1.png</uri>
+            <name>Gazebo/Flat</name>
+          </script>
         </material>
       </visual>
       <collision name="coll">
