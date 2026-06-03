@@ -1,0 +1,353 @@
+<?xml version="1.0"?>
+<!--
+  完整的 mowen 机器人描述 — 包含底盘、轮子、LiDAR + 雷达 + 相机传感器
+  mowen_radar_fusion 包独立使用，不依赖 mowen_gazebo 的 model.sdf
+  网格文件引用 mowen_gazebo 的 package 路径（纯资源）
+-->
+<robot name="mowen">
+
+  <!-- ============================ 底盘 ============================ -->
+
+  <link name="base_footprint"/>
+
+  <link name="base_link">
+    <inertial>
+      <origin xyz="-0.0718509386127855 0.00738215784490594 0.119676355791491" rpy="0 0 0"/>
+      <mass value="0.486218814966626"/>
+      <inertia ixx="0.00196277727666921" ixy="2.50447049446755E-07" ixz="0.000140534767811098"
+               iyy="0.00457256033711368" iyz="2.68618064993882E-07" izz="0.00493927269870476"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="package://mowen_gazebo/models/mowen_common/meshes/mecanum/base_link.STL"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://mowen_gazebo/models/mowen_common/meshes/mecanum/base_link.STL"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="base_joint" type="fixed">
+    <parent link="base_footprint"/>
+    <child link="base_link"/>
+    <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
+  </joint>
+
+  <!-- ============================ 轮子 (4 个麦克纳姆轮) ============================ -->
+
+  <link name="front_left_wheel">
+    <inertial>
+      <origin xyz="-0.199119784807379 -0.138021691116814 0.071103918576079" rpy="0 0 0"/>
+      <mass value="0.051543"/>
+      <inertia ixx="1.4597E-05" ixy="-4.7945E-10" ixz="-2.4786E-10"
+               iyy="1.4598E-05" iyz="1.7972E-09" izz="2.4267E-05"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="package://mowen_gazebo/models/mowen_common/meshes/mecanum/front_left_wheel.STL"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://mowen_gazebo/models/mowen_common/meshes/mecanum/front_left_wheel.STL"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="front_right_wheel">
+    <inertial>
+      <origin xyz="-0.199063466201963 0.152786006806629 0.0710729630656461" rpy="0 0 0"/>
+      <mass value="0.051532"/>
+      <inertia ixx="1.4595E-05" ixy="-4.3975E-10" ixz="4.415E-10"
+               iyy="1.4594E-05" iyz="-1.7476E-09" izz="2.4264E-05"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="package://mowen_gazebo/models/mowen_common/meshes/mecanum/front_right_wheel.STL"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://mowen_gazebo/models/mowen_common/meshes/mecanum/front_right_wheel.STL"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="back_left_wheel">
+    <inertial>
+      <origin xyz="0.00789687485202048 -0.138021691116814 0.0710896498186508" rpy="0 0 0"/>
+      <mass value="0.0515309299357028"/>
+      <inertia ixx="1.45942986129926E-05" ixy="-3.19787215398093E-10" ixz="1.74943062058915E-09"
+               iyy="1.45948727598913E-05" iyz="1.61769812110049E-10" izz="2.4263683888153E-05"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="package://mowen_gazebo/models/mowen_common/meshes/mecanum/back_left_wheel.STL"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://mowen_gazebo/models/mowen_common/meshes/mecanum/back_left_wheel.STL"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="back_right_wheel">
+    <inertial>
+      <origin xyz="0.00792558007520176 0.152786006806629 0.0712769954892365" rpy="0 0 0"/>
+      <mass value="0.051540174053366"/>
+      <inertia ixx="1.45974152250002E-05" ixy="1.94850559178397E-10" ixz="-1.61846387282284E-09"
+               iyy="1.4596501955693E-05" iyz="-6.27904057423818E-10" izz="2.42663091380451E-05"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="package://mowen_gazebo/models/mowen_common/meshes/mecanum/back_right_wheel.STL"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://mowen_gazebo/models/mowen_common/meshes/mecanum/back_right_wheel.STL"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="front_left_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="front_left_wheel"/>
+    <origin xyz="0.12727 0.1454 0.048572" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+  <joint name="front_right_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="front_right_wheel"/>
+    <origin xyz="0.12721 -0.1454 0.048603" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+  <joint name="back_left_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="back_left_wheel"/>
+    <origin xyz="-0.079748 0.1454 0.048587" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+  <joint name="back_right_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="back_right_wheel"/>
+    <origin xyz="-0.079777 -0.1454 0.048399" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+
+  <!-- ============================ 已有传感器 ============================ -->
+
+  <link name="imu_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://mowen_gazebo/models/mowen_common/meshes/sensor/imu_link.STL"/>
+      </geometry>
+    </visual>
+  </link>
+  <joint name="imu_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="imu_link"/>
+    <origin xyz="0.14419 0.00215 0.1034" rpy="3.1416 0 0"/>
+  </joint>
+
+  <link name="laser_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://mowen_gazebo/models/mowen_common/meshes/sensor/laser_link.STL"/>
+      </geometry>
+    </visual>
+  </link>
+  <joint name="laser_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="laser_link"/>
+    <origin xyz="0.13374 0 0.13599" rpy="0 0 0"/>
+  </joint>
+
+  <!-- ============================ 新增: 雷达传感器 ============================ -->
+  <!--
+    毫米波雷达, 用 Gazebo RaySensor 模拟
+    参数: 10束, ±40°, 0.5-35m, update_rate=10Hz
+  -->
+  <link name="radar_link">
+    <visual>
+      <geometry>
+        <box size="0.05 0.02 0.02"/>
+      </geometry>
+      <material name="red"/>
+    </visual>
+  </link>
+  <joint name="radar_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="radar_link"/>
+    <origin xyz="0.15 0.0 0.18" rpy="0 0 0"/>
+  </joint>
+
+  <!-- ============================ 新增: 相机传感器 ============================ -->
+  <!--
+    RGB 相机, 640x480, 30Hz
+    camera_optical 遵循 ROS REP 103 (z-forward, x-right)
+    变换: camera_link → camera_optical = rotate roll=-90°, yaw=-90°
+  -->
+  <link name="camera_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://mowen_gazebo/models/mowen_common/meshes/sensor/camera_link.STL"/>
+      </geometry>
+    </visual>
+  </link>
+  <joint name="camera_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="camera_link"/>
+    <origin xyz="0.14914 -0.00049737 0.19998" rpy="0 0 0"/>
+  </joint>
+
+  <link name="camera_optical"/>
+  <joint name="camera_optical_joint" type="fixed">
+    <parent link="camera_link"/>
+    <child link="camera_optical"/>
+    <!--
+      将 camera_link 坐标系 (x-forward, y-left, z-up)
+      转为 camera_optical (z-forward, x-right, y-down, ROS REP 103)
+    -->
+    <origin xyz="0 0 0" rpy="-1.5708 0 -1.5708"/>
+  </joint>
+
+  <!-- ============================ Gazebo 插件 ============================ -->
+
+  <!-- 底盘驱动 -->
+  <gazebo>
+    <plugin name="mowen_drive" filename="libgazebo_ros_planar_move.so">
+      <ros>
+        <remapping>~/cmd_vel:=cmd_vel</remapping>
+        <remapping>~/odom:=odom</remapping>
+      </ros>
+      <odometry_frame>odom</odometry_frame>
+      <robot_base_frame>base_footprint</robot_base_frame>
+      <publish_odom_tf>true</publish_odom_tf>
+      <publish_odom>true</publish_odom>
+    </plugin>
+  </gazebo>
+
+  <!-- 关节状态 -->
+  <gazebo>
+    <plugin name="mowen_joint_state" filename="libgazebo_ros_joint_state_publisher.so">
+      <ros>
+        <remapping>~/out:=joint_states</remapping>
+      </ros>
+      <update_rate>50</update_rate>
+      <joint_name>front_left_joint</joint_name>
+      <joint_name>front_right_joint</joint_name>
+      <joint_name>back_left_joint</joint_name>
+      <joint_name>back_right_joint</joint_name>
+    </plugin>
+  </gazebo>
+
+  <!-- LiDAR -->
+  <gazebo reference="laser_link">
+    <sensor type="ray" name="lds_laser">
+      <always_on>true</always_on>
+      <visualize>true</visualize>
+      <update_rate>10</update_rate>
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>1440</samples>
+            <resolution>1.0</resolution>
+            <min_angle>0.0</min_angle>
+            <max_angle>6.28</max_angle>
+          </horizontal>
+        </scan>
+        <range>
+          <min>0.12</min>
+          <max>3.5</max>
+          <resolution>0.015</resolution>
+        </range>
+        <noise>
+          <type>gaussian</type>
+          <mean>0.0</mean>
+          <stddev>0.01</stddev>
+        </noise>
+      </ray>
+      <plugin name="mowen_laserscan" filename="libgazebo_ros_ray_sensor.so">
+        <ros>
+          <remapping>~/out:=scan</remapping>
+        </ros>
+        <output_type>sensor_msgs/LaserScan</output_type>
+        <frame_name>laser_link</frame_name>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+  <!-- 毫米波雷达 (RaySensor 模拟) -->
+  <gazebo reference="radar_link">
+    <sensor type="ray" name="radar_range">
+      <always_on>true</always_on>
+      <visualize>true</visualize>
+      <update_rate>10</update_rate>
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>10</samples>
+            <resolution>1</resolution>
+            <min_angle>-0.7</min_angle>
+            <max_angle>0.7</max_angle>
+          </horizontal>
+        </scan>
+        <range>
+          <min>0.5</min>
+          <max>35.0</max>
+          <resolution>0.1</resolution>
+        </range>
+        <noise>
+          <type>gaussian</type>
+          <mean>0.0</mean>
+          <stddev>0.05</stddev>
+        </noise>
+      </ray>
+      <plugin name="mowen_radar" filename="libgazebo_ros_ray_sensor.so">
+        <ros>
+          <remapping>~/out:=/radar/scan</remapping>
+        </ros>
+        <output_type>sensor_msgs/LaserScan</output_type>
+        <frame_name>radar_link</frame_name>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+  <!-- RGB 相机 -->
+  <gazebo reference="camera_link">
+    <sensor type="camera" name="rgb_camera">
+      <always_on>true</always_on>
+      <visualize>true</visualize>
+      <update_rate>30</update_rate>
+      <camera>
+        <horizontal_fov>1.047198</horizontal_fov>
+        <image>
+          <width>640</width>
+          <height>480</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.1</near>
+          <far>100</far>
+        </clip>
+        <noise>
+          <type>gaussian</type>
+          <mean>0.0</mean>
+          <stddev>0.007</stddev>
+        </noise>
+      </camera>
+      <plugin name="mowen_camera" filename="libgazebo_ros_camera.so">
+        <ros>
+          <remapping>~/out:=/camera/image_raw</remapping>
+        </ros>
+        <frame_name>camera_optical</frame_name>
+        <camera_info_topic>/camera/camera_info</camera_info_topic>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+</robot>

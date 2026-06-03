@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<sdf version="1.6">
+  <model name="billboard_car1">
+    <static>true</static>
+    <link name="link">
+      <visual name="vis">
+        <pose>0 0 0.5 0 0 0</pose>
+        <geometry><box><size>0.8 0.01 1.0</size></box></geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <emissive>0 0 0 1</emissive>
+        </material>
+      </visual>
+      <collision name="coll">
+        <geometry><box><size>0.8 0.01 1.0</size></box></geometry>
+      </collision>
+    </link>
+  </model>
+</sdf>

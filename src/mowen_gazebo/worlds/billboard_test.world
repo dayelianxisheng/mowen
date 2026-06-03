@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<sdf version="1.6">
+  <world name="billboard_test">
+    <include><uri>model://sun</uri></include>
+    <include><uri>model://ground_plane</uri></include>
+    <scene><shadows>false</shadows></scene>
+    <physics type="ode">
+      <real_time_update_rate>1000.0</real_time_update_rate>
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <ode>
+        <solver><type>quick</type><iters>150</iters><sor>1.4</sor>
+        <use_dynamic_moi_rescaling>1</use_dynamic_moi_rescaling></solver>
+        <constraints><cfm>0.00001</cfm><erp>0.2</erp>
+        <contact_max_correcting_vel>2000.0</contact_max_correcting_vel>
+        <contact_surface_layer>0.01</contact_surface_layer></constraints>
+      </ode>
+    </physics>
+    <include>
+      <uri>model://billboard_person1</uri>
+      <pose>2.0 0 0 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://billboard_chair1</uri>
+      <pose>3.5 0 0 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://billboard_bottle1</uri>
+      <pose>5.0 0 0 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://billboard_tv1</uri>
+      <pose>6.5 0 0 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://billboard_car1</uri>
+      <pose>8.0 0 0 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://billboard_bowl1</uri>
+      <pose>9.5 0 0 0 0 0</pose>
+    </include>
+
+  </world>
+</sdf>

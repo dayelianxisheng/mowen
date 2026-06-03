@@ -38,27 +38,15 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: true
-        back_left_wheel:
-          Value: true
-        back_right_wheel:
-          Value: true
         base_footprint:
           Value: true
         base_link:
           Value: true
         camera_link:
           Value: true
-        front_left_wheel:
-          Value: true
-        front_right_wheel:
-          Value: true
         imu_link:
           Value: true
         laser_link:
-          Value: true
-        map:
-          Value: true
-        odom:
           Value: true
       Marker Scale: 1
       Name: TF
@@ -66,24 +54,7 @@ Visualization Manager:
       Show Axes: true
       Show Names: false
       Tree:
-        map:
-          odom:
-            base_footprint:
-              base_link:
-                back_left_wheel:
-                  {}
-                back_right_wheel:
-                  {}
-                camera_link:
-                  {}
-                front_left_wheel:
-                  {}
-                front_right_wheel:
-                  {}
-                imu_link:
-                  {}
-                laser_link:
-                  {}
+        {}
       Update Interval: 0
       Value: true
     - Alpha: 1
@@ -244,16 +215,16 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 4.830904960632324
+      Distance: 3.3615975379943848
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -0.3097642660140991
-        Y: -0.29985466599464417
-        Z: 0.4310655891895294
+        X: -0.15926457941532135
+        Y: 0.15060481429100037
+        Z: 0.006123152561485767
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
