@@ -268,13 +268,16 @@ class RadarGuidedDetector(Node):
 
                 # Detection2D 消息
                 det = Detection2D(header=header)
-                det.bbox = BoundingBox2D(
-                    center=BoundingBox2D._center_type(
-                        x=float((x1+x2)/2/w), y=float((y1+y2)/2/h)),
-                    size_x=float((x2-x1)/w), size_y=float((y2-y1)/h))
-                det.results.append(ObjectHypothesisWithPose(
-                    hypothesis=ObjectHypothesisWithPose._hypothesis_type(
-                        class_id=item['class_name'], score=float(item['score']))))
+                bbox = BoundingBox2D()
+                bbox.center.position.x = float((x1 + x2) / 2.0 / w)
+                bbox.center.position.y = float((y1 + y2) / 2.0 / h)
+                bbox.size_x = float((x2 - x1) / w)
+                bbox.size_y = float((y2 - y1) / h)
+                det.bbox = bbox
+                hyp = ObjectHypothesisWithPose()
+                hyp.hypothesis.class_id = item['class_name']
+                hyp.hypothesis.score = float(item['score'])
+                det.results.append(hyp)
                 det_array.detections.append(det)
 
                 # 可视化
