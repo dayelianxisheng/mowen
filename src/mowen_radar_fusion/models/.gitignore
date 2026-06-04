@@ -1,0 +1,15 @@
+.vscode/
+*.pyc
+__pycache__/
+*.db
+*.db-shm
+*.db-wal
+.DS_Store
+scripts/
+*.bak
+
+docker-ros2/torch-whl/
+docker-ros2/workspace/*
+src/mowen_radar_fusion/models/race_models
+docker-ros2/workspace
+src/mowen_radar_fusion/models/race_models
