@@ -53,7 +53,7 @@ class RadarCameraProjector(Node):
         # 雷达投影参数
         self.radar_height_min = -0.3   # 投影线底部 (雷达安装高度 - 目标最低高度)
         self.radar_height_max = 1.5    # 投影线顶部 (障碍物最高高度)
-        self.max_distance = 35.0       # 雷达最大探测距离
+        self.max_distance = 10.0       # 颜色映射最大距离(m), 匹配实际场景大小
 
         self.get_logger().info('RadarCameraProjector started')
 
