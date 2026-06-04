@@ -8,9 +8,9 @@ __pycache__/
 scripts/
 *.bak
 
-log/
-build/
-install/
+**/log/
+**/build/
+**/install/
 docker/workspace/*
 docker/torch-whl/
 src/mowen_radar_fusion/models/race_models
