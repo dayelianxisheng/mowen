@@ -88,29 +88,86 @@
     </model>
 
     <!-- ====== 赛道中央障碍物 ====== -->
-    <include><static>true</static><uri>model://cardboard_box</uri><pose>2 0.5 0 0 0 0</pose></include>
-    <include><static>true</static><uri>model://cardboard_box</uri><pose>2.5 0.5 0 0 0 0</pose></include>
-    <include><static>true</static><uri>model://jersey_barrier</uri><pose>-1 0.5 0 0 0 0</pose></include>
-    <include><static>true</static><uri>model://jersey_barrier</uri><pose>-0.5 0.5 0 0 0 0</pose></include>
-    <include><static>true</static><uri>model://construction_cone</uri><pose>4 1.2 0 0 0 0</pose></include>
-    <include><static>true</static><uri>model://construction_cone</uri><pose>4 -0.2 0 0 0 0</pose></include>
+    <model name="cardboard_box_auto"><static>true</static>
+      <include><uri>model://cardboard_box</uri></include>
+      <pose>2 0.5 0.05 0 0 0</pose>
+    </model>
+    <model name="cardboard_box_auto"><static>true</static>
+      <include><uri>model://cardboard_box</uri></include>
+      <pose>2.5 0.5 0.05 0 0 0</pose>
+    </model>
+    <model name="jersey_barrier_auto"><static>true</static>
+      <include><uri>model://jersey_barrier</uri></include>
+      <pose>-1 0.5 0.05 0 0 0</pose>
+    </model>
+    <model name="jersey_barrier_auto"><static>true</static>
+      <include><uri>model://jersey_barrier</uri></include>
+      <pose>-0.5 0.5 0.05 0 0 0</pose>
+    </model>
+    <model name="construction_cone_auto"><static>true</static>
+      <include><uri>model://construction_cone</uri></include>
+      <pose>4 1.2 0.05 0 0 0</pose>
+    </model>
+    <model name="construction_cone_auto"><static>true</static>
+      <include><uri>model://construction_cone</uri></include>
+      <pose>4 -0.2 0.05 0 0 0</pose>
+    </model>
 
     <!-- ====== 角落静态物体 ====== -->
-    <include><static>true</static><uri>model://hatchback_red</uri><pose>5 2.5 0 0 0 0</pose></include>
-    <include><static>true</static><uri>model://person_standing</uri><pose>3 3 0 0 0 1.57</pose></include>
-    <include><static>true</static><uri>model://person_standing</uri><pose>-3 3 0 0 0 -0.5</pose></include>
-    <include><static>true</static><uri>model://dumpster</uri><pose>-4.5 -2.5 0 0 0 0</pose></include>
-    <include><static>true</static><uri>model://cafe_table</uri><pose>-3 -3 0 0 0 0</pose></include>
-    <include><static>true</static><uri>model://hatchback</uri><pose>4 -3 0 0 0 0</pose></include>
+    <model name="hatchback_red_auto"><static>true</static>
+      <include><uri>model://hatchback_red</uri></include>
+      <pose>5 2.5 0.05 0 0 0</pose>
+    </model>
+    <model name="person_standing_auto"><static>true</static>
+      <include><uri>model://person_standing</uri></include>
+      <pose>3 3 0.05 0 0 1.57</pose>
+    </model>
+    <model name="person_standing_auto"><static>true</static>
+      <include><uri>model://person_standing</uri></include>
+      <pose>-3 3 0.05 0 0 -0.5</pose>
+    </model>
+    <model name="dumpster_auto"><static>true</static>
+      <include><uri>model://dumpster</uri></include>
+      <pose>-4.5 -2.5 0.05 0 0 0</pose>
+    </model>
+    <model name="cafe_table_auto"><static>true</static>
+      <include><uri>model://cafe_table</uri></include>
+      <pose>-3 -3 0.05 0 0 0</pose>
+    </model>
+    <model name="hatchback_auto"><static>true</static>
+      <include><uri>model://hatchback</uri></include>
+      <pose>4 -3 0.05 0 0 0</pose>
+    </model>
 
     <!-- ====== 场景装饰 ====== -->
-    <include><static>true</static><uri>model://stop_sign</uri><pose>-5.5 0.5 0 0 0 0</pose></include>
-    <include><static>true</static><uri>model://number1</uri><pose>-5.5 3 0 0 0 0</pose></include>
-    <include><static>true</static><uri>model://number2</uri><pose>-2.5 3 0 0 0 0</pose></include>
-    <include><static>true</static><uri>model://number3</uri><pose>0.5 3 0 0 0 0</pose></include>
-    <include><static>true</static><uri>model://lamp_post</uri><pose>5.5 3.5 0 0 0 0</pose></include>
-    <include><static>true</static><uri>model://lamp_post</uri><pose>-5.5 -3.5 0 0 0 0</pose></include>
-    <include><static>true</static><uri>model://fire_hydrant</uri><pose>-5 2 0 0 0 0</pose></include>
+    <model name="stop_sign_auto"><static>true</static>
+      <include><uri>model://stop_sign</uri></include>
+      <pose>-5.5 0.5 0.05 0 0 0</pose>
+    </model>
+    <model name="number1_auto"><static>true</static>
+      <include><uri>model://number1</uri></include>
+      <pose>-5.5 3 0.05 0 0 0</pose>
+    </model>
+    <model name="number2_auto"><static>true</static>
+      <include><uri>model://number2</uri></include>
+      <pose>-2.5 3 0.05 0 0 0</pose>
+    </model>
+    <model name="number3_auto"><static>true</static>
+      <include><uri>model://number3</uri></include>
+      <pose>0.5 3 0.05 0 0 0</pose>
+    </model>
+    <model name="lamp_post_auto"><static>true</static>
+      <include><uri>model://lamp_post</uri></include>
+      <pose>5.5 3.5 0.05 0 0 0</pose>
+    </model>
+    <model name="lamp_post_auto"><static>true</static>
+      <include><uri>model://lamp_post</uri></include>
+      <pose>-5.5 -3.5 0.05 0 0 0</pose>
+    </model>
+    <model name="fire_hydrant_auto"><static>true</static>
+      <include><uri>model://fire_hydrant</uri></include>
+      <pose>-5 2 0.05 0 0 0</pose>
+    </model>
 
   </world>
 </sdf>
