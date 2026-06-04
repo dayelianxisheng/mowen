@@ -13,11 +13,31 @@ Gazebo 中的雷达用一个低分辨率 RaySensor 模拟。
   - SNR 用激光反射强度模拟
 """
 
+import math
+import sys
+import numpy as np
+
+# --test 模式: 独立运行, 不需要 ROS2
+if '--test' in sys.argv:
+    print("=" * 60)
+    print("雷达仿真节点 测试 - 数据特征:")
+    print("=" * 60)
+    n_beams = 10
+    angles = np.linspace(-0.7, 0.7, n_beams)
+    ranges = np.array([1.5, 3.2, 5.8, 35.0, 35.0, 35.0, 4.1, 2.3, 12.0, 8.5])
+    print(f"LaserScan: {n_beams}束, ±{np.rad2deg(0.7):.0f}°, 0.5-35m")
+    valid = ranges < 35.0
+    for i in range(n_beams):
+        status = f"{ranges[i]:.1f}m" if valid[i] else "无回波"
+        print(f"  束{i:2d} | {np.rad2deg(angles[i]):+6.1f}deg | {status}")
+    print(f"有效目标: {valid.sum()}/{n_beams}, 最近{np.min(ranges[valid]):.1f}m, 最远{np.max(ranges[valid]):.1f}m")
+    print("=" * 60)
+    sys.exit(0)
+
 import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import LaserScan
 from mowen_radar_fusion.msg import RadarTarget, RadarTargetArray
-import math
 
 
 class RadarSimNode(Node):
@@ -64,45 +84,7 @@ class RadarSimNode(Node):
         self.get_logger().debug(f'Published {len(targets.targets)} radar targets')
 
 
-def test():
-    """测试: 生成模拟雷达数据并打印特征"""
-    import numpy as np
-    print("=" * 60)
-    print("雷达仿真节点 测试 — 数据特征:")
-    print("=" * 60)
-
-    # 模拟 10 束雷达, ±40° (±0.7rad), 距离 0.5-35m
-    n_beams = 10
-    angles = np.linspace(-0.7, 0.7, n_beams)
-    # 模拟场景: 有近有远的目标
-    ranges = np.array([1.5, 3.2, 5.8, 35.0, 35.0, 35.0, 4.1, 2.3, 12.0, 8.5])
-
-    print(f"\n输入 (LaserScan):")
-    print(f"  {n_beams} 束, 角度范围 ±{np.rad2deg(0.7):.0f}°")
-    print(f"  angle_min={angles[0]:.2f}, angle_max={angles[-1]:.2f}")
-    print(f"  range_min=0.5m, range_max=35.0m")
-
-    print(f"\n有效检测 (Range < 35m = 有物体):")
-    valid = ranges < 35.0
-    for i in range(n_beams):
-        status = f"✓ {ranges[i]:.1f}m" if valid[i] else "✗ 无回波"
-        print(f"  束{i:2d} | 角度 {np.rad2deg(angles[i]):+6.1f}° | {status}")
-
-    print(f"\n输出 (RadarTargetArray):")
-    print(f"  有效目标数: {valid.sum()}/{n_beams}")
-    print(f"  最近: {ranges[valid].min():.1f}m (束{np.argmin(ranges)})")
-    print(f"  最远: {ranges[valid].max():.1f}m")
-    print(f"  平均: {ranges[valid].mean():.1f}m")
-    print(f"  检测率: {valid.sum()/n_beams*100:.0f}%")
-    print("=" * 60)
-
-
 def main():
-    import sys
-    if '--test' in sys.argv:
-        test()
-        return
-
     rclpy.init()
     node = RadarSimNode()
     rclpy.spin(node)

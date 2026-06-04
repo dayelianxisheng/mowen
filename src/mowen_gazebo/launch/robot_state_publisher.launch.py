@@ -30,14 +30,14 @@ def generate_launch_description():
     use_sim_time = LaunchConfiguration('use_sim_time', default='true')
 
     # ---- URDF 文件路径 -------------------------------------------------
-    # 注意: 项目同时有 model.sdf 和 mowen.urdf
+    # 注意: 项目同时有 model.sdf 和 mowen_with_sensors.urdf
     #   - SDF 用于 Gazebo（含插件定义: planar_move, laser, camera）
     #   - URDF 用于 robot_state_publisher（关节和连杆的静态 TF）
     #   两者定义相同的连杆和关节结构，必须保持一致
     urdf_path = os.path.join(
         get_package_share_directory('mowen_gazebo'),
         'urdf',
-        'mowen.urdf'
+        'mowen_with_sensors.urdf'
     )
 
     # ---- 读取 URDF 为字符串 --------------------------------------------

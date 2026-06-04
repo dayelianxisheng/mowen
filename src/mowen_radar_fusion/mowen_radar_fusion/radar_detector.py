@@ -11,6 +11,58 @@
   3. 输出检测结果 + 距离标签
 """
 
+import sys
+if '--test' in sys.argv:
+    import numpy as np, cv2, torch, torchvision
+    from torchvision.transforms import functional as F
+
+    print("=" * 60)
+    print("CNN 检测节点 测试 - 数据特征:")
+    print("=" * 60)
+
+    w, h = 640, 480
+    img = np.ones((h, w, 3), dtype=np.uint8) * 100
+    cv2.rectangle(img, (0, 300), (w, h), (80, 80, 80), -1)
+    cv2.rectangle(img, (250, 180), (310, 300), (50, 50, 200), -1)
+    cv2.circle(img, (280, 155), 20, (200, 150, 120), -1)
+    cv2.putText(img, "Test: person + car shapes", (200, 350), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (200, 200, 200), 1)
+
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    weights = torchvision.models.detection.FasterRCNN_ResNet50_FPN_Weights.COCO_V1
+    model = torchvision.models.detection.fasterrcnn_resnet50_fpn(weights=weights, box_score_thresh=0.3)
+    model.to(device).eval()
+    print(f"设备: {device}, 模型: Faster R-CNN (COCO 80类)")
+    print(f"输入: {w}x{h} 模拟场景图 (人+车)")
+
+    tensor = F.to_tensor(img).unsqueeze(0).to(device)
+    with torch.no_grad():
+        pred = model(tensor)
+
+    boxes = pred[0]['boxes'].cpu().numpy()
+    scores = pred[0]['scores'].cpu().numpy()
+    labels = pred[0]['labels'].cpu().numpy()
+    coco = ['__bg__', 'person', 'bicycle', 'car', 'motorcycle', 'airplane', 'bus', 'train',
+            'truck', 'boat', 'traffic light', 'fire hydrant', 'stop sign', 'parking meter',
+            'bench', 'bird', 'cat', 'dog', 'horse', 'sheep', 'cow', 'elephant', 'bear',
+            'zebra', 'giraffe', 'backpack', 'umbrella']
+
+    print(f"\n检测结果: {len(boxes)} 个物体")
+    for i, (box, score, label) in enumerate(zip(boxes, scores, labels)):
+        name = coco[int(label)] if int(label) < len(coco) else f'cls_{label}'
+        x1, y1, x2, y2 = box.astype(int)
+        cv2.rectangle(img, (x1, y1), (x2, y2), (0, 255, 0), 2)
+        cv2.putText(img, f"{name} {score:.2f}", (x1, y1-5), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0, 255, 0), 1)
+        print(f"  [{i}] {name:10s} score={score:.3f}  box=({x1},{y1})-({x2},{y2}) size={(x2-x1)}x{(y2-y1)}")
+
+    if len(boxes) == 0:
+        cv2.putText(img, "No objects detected (need realistic photos)", (80, 430),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0, 0, 255), 1)
+    cv2.imshow("Detector Test - Press any key", img)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+    print("=" * 60)
+    sys.exit(0)
+
 import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import Image, CameraInfo
