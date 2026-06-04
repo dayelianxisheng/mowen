@@ -185,7 +185,103 @@ class RadarCameraProjector(Node):
         return None
 
 
+def test():
+    """测试: 雷达→图像投影, 展示坐标变换每一步的数据特征"""
+    import numpy as np
+    import cv2
+
+    print("=" * 60)
+    print("雷达→相机投影 测试 — 数据变换链:")
+    print("=" * 60)
+
+    # 相机内参
+    IMG_W, IMG_H = 640, 480
+    fx = IMG_W / (2 * np.tan(np.deg2rad(60) / 2))
+    K = np.array([[fx, 0, IMG_W/2],
+                  [0, fx, IMG_H/2],
+                  [0,  0,      1]])
+
+    # 外参: radar_link → camera_optical
+    t = np.array([0.001, 0, -0.02])
+    R = np.eye(3)
+
+    # 模拟5个雷达目标
+    targets = [
+        (2.0,  0.0,  0.0),
+        (4.0,  0.3,  0.0),
+        (8.0, -0.2,  0.0),
+        (1.5,  0.1,  0.0),
+        (15.0, 0.0,  0.0),
+    ]
+
+    colors = [(0, 0, 255), (0, 165, 255), (255, 0, 0), (0, 0, 255), (255, 128, 0)]
+    img = np.ones((IMG_H, IMG_W, 3), dtype=np.uint8) * 50
+
+    for i, (dist, az, el) in enumerate(targets):
+        print(f"\n--- 目标[{i}] 距离={dist:.1f}m, 方位角={np.rad2deg(az):+.1f}° ---")
+
+        # Step 1: 球坐标 → 笛卡尔
+        x_r = dist * np.cos(az) * np.cos(el)
+        y_r = dist * np.sin(az) * np.cos(el)
+        z_r = dist * np.sin(el)
+        print(f"  Step1 球→笛卡尔:")
+        print(f"    雷达坐标: ({x_r:.1f}, {y_r:.1f}, {z_r:.1f}) m")
+
+        # Step 2: 雷达→相机
+        pt_cam = R @ np.array([x_r, y_r, z_r]) + t
+        print(f"  Step2 TF变换 (radar→camera):")
+        print(f"    平移 t=({t[0]:.3f}, {t[1]:.3f}, {t[2]:.3f})")
+        print(f"    相机坐标: ({pt_cam[0]:.1f}, {pt_cam[1]:.1f}, {pt_cam[2]:.1f}) m")
+
+        # Step 3: 相机→像素
+        if pt_cam[0] <= 0:
+            print(f"  Step3 像素投影: ✗ 在相机后方, 跳过")
+            continue
+
+        px = K @ pt_cam
+        u = px[0] / px[2]
+        v = px[1] / px[2]
+        print(f"  Step3 相机→像素:")
+        print(f"    内参 K: fx={fx:.0f}, fy={fy:.0f}, cx={IMG_W/2:.0f}, cy={IMG_H/2:.0f}")
+        print(f"    像素坐标: u={u:.0f}, v={v:.0f}")
+        in_fov = (0 <= u < IMG_W) and (0 <= v < IMG_H)
+        print(f"    在画面内: {'✓' if in_fov else '✗ 超出'}")
+
+        # Step 4: 高度扩展 + 颜色编码
+        z_bottom = -1.0
+        z_top = 2.0
+        pt_bot = R @ np.array([x_r, y_r, z_bottom]) + t
+        pt_top = R @ np.array([x_r, y_r, z_top]) + t
+        px_bot = K @ pt_bot
+        px_top = K @ pt_top
+
+        if pt_bot[0] > 0 and pt_top[0] > 0 and in_fov:
+            by, ty = int(px_bot[1]/px_bot[2]), int(px_top[1]/px_top[2])
+            u = int(u)
+            ratio = min(1.0, dist / 10.0)
+            color = (int(255*ratio), 0, int(255*(1-ratio)))
+            cv2.line(img, (u, by), (u, ty), color, 2)
+            cv2.circle(img, (u, int(v)), 4, color, -1)
+            cv2.putText(img, f"{dist:.1f}m", (u+6, int(v)-6),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.4, color, 1)
+            print(f"  Step4 CRF-Net投影线:")
+            print(f"    底部像素: ({u}, {by}), 顶部像素: ({u}, {ty})")
+            print(f"    颜色: B={color[0]}, R={color[2]} (近=红,远=蓝)")
+
+    cv2.putText(img, "Radar Projection Test", (10, 30),
+                cv2.FONT_HERSHEY_SIMPLEX, 0.7, (200, 200, 200), 2)
+    cv2.imshow("Projector Test - Press any key", img)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+    print("\n" + "=" * 60)
+
+
 def main():
+    import sys
+    if '--test' in sys.argv:
+        test()
+        return
+
     rclpy.init()
     node = RadarCameraProjector()
     rclpy.spin(node)

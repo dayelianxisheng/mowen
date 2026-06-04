@@ -67,7 +67,58 @@ class FusionVisualizerNode(Node):
         self.combined_pub.publish(img_msg)
 
 
+def test():
+    """测试: 展示原始图 + 雷达投影图的并排对比效果"""
+    import numpy as np
+    import cv2
+
+    print("=" * 60)
+    print("融合可视化 测试 — 并排对比:")
+    print("=" * 60)
+
+    w, h = 320, 240
+
+    # 左: 模拟原始相机图
+    raw = np.ones((h, w, 3), dtype=np.uint8) * 80
+    cv2.rectangle(raw, (0, 160), (w, h), (60, 60, 60), -1)  # 地面
+    cv2.rectangle(raw, (100, 80), (160, 180), (50, 50, 200), -1)  # 障碍物
+    cv2.putText(raw, "RAW Camera", (10, 30),
+                cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
+
+    # 右: 模拟雷达投影图 (加上投影线)
+    fused = np.ones((h, w, 3), dtype=np.uint8) * 80
+    cv2.rectangle(fused, (0, 160), (w, h), (60, 60, 60), -1)
+    cv2.rectangle(fused, (100, 80), (160, 180), (50, 50, 200), -1)
+    # 添加模拟雷达投影线
+    for px, dist in [(130, 2), (150, 5), (80, 8), (200, 3)]:
+        ratio = min(1.0, dist / 10.0)
+        color = (int(255 * ratio), 0, int(255 * (1 - ratio)))
+        cv2.line(fused, (px, 200), (px, 40), color, 2)
+        cv2.putText(fused, f"{dist}m", (px + 4, 35),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.35, color, 1)
+    cv2.putText(fused, "Camera + Radar", (10, 30),
+                cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
+
+    # 并排
+    combined = np.hstack([raw, fused])
+    cv2.imshow("Fusion Visualizer Test - Press any key", combined)
+
+    print(f"\n  左侧: 原始相机画面 ({w}x{h})")
+    print(f"  右侧: 雷达投影增强 ({w}x{h})")
+    print(f"  红色线 = 近距离物质, 蓝色线 = 远距离物质")
+    print(f"  对比: 雷达线标注了障碍物位置和距离")
+
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+    print("=" * 60)
+
+
 def main():
+    import sys
+    if '--test' in sys.argv:
+        test()
+        return
+
     rclpy.init()
     node = FusionVisualizerNode()
     rclpy.spin(node)
