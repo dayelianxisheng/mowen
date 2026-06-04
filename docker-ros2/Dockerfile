@@ -1,11 +1,15 @@
 FROM robotis/turtlebot3:humble-latest
 
+# 代理 (构建时自动注入)
+ARG HTTP_PROXY
+ARG HTTPS_PROXY
+ARG NO_PROXY=localhost,127.0.0.1,.local
+ENV HTTP_PROXY=${HTTP_PROXY} HTTPS_PROXY=${HTTPS_PROXY} NO_PROXY=${NO_PROXY}
+
 # ============================================================
-# 1. 换清华镜像 + 安装 Gazebo + ROS2 依赖
+# 1. 安装 Gazebo + ROS2 依赖 (走宿主机代理)
 # ============================================================
-RUN sed -i 's|http://archive.ubuntu.com|http://mirrors.tuna.tsinghua.edu.cn|g' /etc/apt/sources.list \
-    && sed -i 's|http://security.ubuntu.com|http://mirrors.tuna.tsinghua.edu.cn|g' /etc/apt/sources.list \
-    && apt-get update && apt-get install -y --no-install-recommends \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     ros-humble-gazebo-ros-pkgs \
     ros-humble-cartographer-ros \
     ros-humble-nav2-bringup \
