@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <sdf version="1.6">
   <world name="race_track">
-    <include><uri>model://sun</uri></include>
+    <include><static>true</static><uri>model://sun</uri></include>
     <scene><shadows>false</shadows></scene>
 
     <physics type="ode">
@@ -88,29 +88,29 @@
     </model>
 
     <!-- ====== 赛道中央障碍物 ====== -->
-    <include><uri>model://cardboard_box</uri><pose>2 0.5 0 0 0 0</pose></include>
-    <include><uri>model://cardboard_box</uri><pose>2.5 0.5 0 0 0 0</pose></include>
-    <include><uri>model://jersey_barrier</uri><pose>-1 0.5 0 0 0 0</pose></include>
-    <include><uri>model://jersey_barrier</uri><pose>-0.5 0.5 0 0 0 0</pose></include>
-    <include><uri>model://construction_cone</uri><pose>4 1.2 0 0 0 0</pose></include>
-    <include><uri>model://construction_cone</uri><pose>4 -0.2 0 0 0 0</pose></include>
+    <include><static>true</static><uri>model://cardboard_box</uri><pose>2 0.5 0 0 0 0</pose></include>
+    <include><static>true</static><uri>model://cardboard_box</uri><pose>2.5 0.5 0 0 0 0</pose></include>
+    <include><static>true</static><uri>model://jersey_barrier</uri><pose>-1 0.5 0 0 0 0</pose></include>
+    <include><static>true</static><uri>model://jersey_barrier</uri><pose>-0.5 0.5 0 0 0 0</pose></include>
+    <include><static>true</static><uri>model://construction_cone</uri><pose>4 1.2 0 0 0 0</pose></include>
+    <include><static>true</static><uri>model://construction_cone</uri><pose>4 -0.2 0 0 0 0</pose></include>
 
     <!-- ====== 角落静态物体 ====== -->
-    <include><uri>model://hatchback_red</uri><pose>5 2.5 0 0 0 0</pose></include>
-    <include><uri>model://person_standing</uri><pose>3 3 0 0 0 1.57</pose></include>
-    <include><uri>model://person_standing</uri><pose>-3 3 0 0 0 -0.5</pose></include>
-    <include><uri>model://dumpster</uri><pose>-4.5 -2.5 0 0 0 0</pose></include>
-    <include><uri>model://cafe_table</uri><pose>-3 -3 0 0 0 0</pose></include>
-    <include><uri>model://hatchback</uri><pose>4 -3 0 0 0 0</pose></include>
+    <include><static>true</static><uri>model://hatchback_red</uri><pose>5 2.5 0 0 0 0</pose></include>
+    <include><static>true</static><uri>model://person_standing</uri><pose>3 3 0 0 0 1.57</pose></include>
+    <include><static>true</static><uri>model://person_standing</uri><pose>-3 3 0 0 0 -0.5</pose></include>
+    <include><static>true</static><uri>model://dumpster</uri><pose>-4.5 -2.5 0 0 0 0</pose></include>
+    <include><static>true</static><uri>model://cafe_table</uri><pose>-3 -3 0 0 0 0</pose></include>
+    <include><static>true</static><uri>model://hatchback</uri><pose>4 -3 0 0 0 0</pose></include>
 
     <!-- ====== 场景装饰 ====== -->
-    <include><uri>model://stop_sign</uri><pose>-5.5 0.5 0 0 0 0</pose></include>
-    <include><uri>model://number1</uri><pose>-5.5 3 0 0 0 0</pose></include>
-    <include><uri>model://number2</uri><pose>-2.5 3 0 0 0 0</pose></include>
-    <include><uri>model://number3</uri><pose>0.5 3 0 0 0 0</pose></include>
-    <include><uri>model://lamp_post</uri><pose>5.5 3.5 0 0 0 0</pose></include>
-    <include><uri>model://lamp_post</uri><pose>-5.5 -3.5 0 0 0 0</pose></include>
-    <include><uri>model://fire_hydrant</uri><pose>-5 2 0 0 0 0</pose></include>
+    <include><static>true</static><uri>model://stop_sign</uri><pose>-5.5 0.5 0 0 0 0</pose></include>
+    <include><static>true</static><uri>model://number1</uri><pose>-5.5 3 0 0 0 0</pose></include>
+    <include><static>true</static><uri>model://number2</uri><pose>-2.5 3 0 0 0 0</pose></include>
+    <include><static>true</static><uri>model://number3</uri><pose>0.5 3 0 0 0 0</pose></include>
+    <include><static>true</static><uri>model://lamp_post</uri><pose>5.5 3.5 0 0 0 0</pose></include>
+    <include><static>true</static><uri>model://lamp_post</uri><pose>-5.5 -3.5 0 0 0 0</pose></include>
+    <include><static>true</static><uri>model://fire_hydrant</uri><pose>-5 2 0 0 0 0</pose></include>
 
   </world>
 </sdf>
