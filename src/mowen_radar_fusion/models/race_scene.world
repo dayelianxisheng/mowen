@@ -62,30 +62,6 @@
       </link>
     </model>
 
-    <!-- ====== 赛道边界线 (白色) ====== -->
-    <model name="track_lane_L"><static>true</static><pose>0 1.5 0.055 0 0 0</pose>
-      <link name="l"><visual name="v"><geometry><box><size>11 0.15 0.01</size></box></geometry>
-        <material><ambient>0.9 0.9 0.9 1</ambient><diffuse>1 1 1 1</diffuse></material>
-      </visual></link>
-    </model>
-    <model name="track_lane_R"><static>true</static><pose>0 -0.5 0.055 0 0 0</pose>
-      <link name="l"><visual name="v"><geometry><box><size>11 0.15 0.01</size></box></geometry>
-        <material><ambient>0.9 0.9 0.9 1</ambient><diffuse>1 1 1 1</diffuse></material>
-      </visual></link>
-    </model>
-    <!-- 横向连接 (U型底部) -->
-    <model name="track_lane_bottom"><static>true</static><pose>5 0.5 0.055 0 0 0</pose>
-      <link name="l"><visual name="v"><geometry><box><size>0.15 2 0.01</size></box></geometry>
-        <material><ambient>0.9 0.9 0.9 1</ambient><diffuse>1 1 1 1</diffuse></material>
-      </visual></link>
-    </model>
-
-    <!-- ====== 起点线 (红色) ====== -->
-    <model name="start_line"><static>true</static><pose>-5 0.5 0.056 0 0 0</pose>
-      <link name="l"><visual name="v"><geometry><box><size>0.2 2.2 0.01</size></box></geometry>
-        <material><ambient>0.9 0.1 0.1 1</ambient><diffuse>1 0.1 0.1 1</diffuse></material>
-      </visual></link>
-    </model>
 
     <!-- ====== 赛道中央障碍物 ====== -->
     <model name="cardboard_box_auto"><static>true</static>
