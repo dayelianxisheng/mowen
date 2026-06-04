@@ -51,7 +51,7 @@ def generate_launch_description():
     # ---- Gazebo 路径配置 ----
     gazebo_model_path = os.pathsep.join([
         os.path.join(pkg_mowen_radar, 'models'),
-        os.path.join(pkg_mowen_radar, 'models', 'cafe_models'),
+        os.path.join(pkg_mowen_radar, 'models', 'race_models'),
         os.path.join(pkg_mowen_gazebo, 'models'),
         '/opt/ros/humble/share/gazebo_ros/models',
         '/usr/share/gazebo-11/models',
