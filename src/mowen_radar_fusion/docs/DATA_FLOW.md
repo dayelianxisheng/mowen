@@ -35,6 +35,7 @@
 
 ### ① radar_sim_node — 雷达仿真转换
 
+- **代码**: `mowen_radar_fusion/radar_sim_node.py`
 - **订阅**: `/radar/scan` (sensor_msgs/LaserScan)
   - 来自 Gazebo 毫米波雷达传感器 (10束, ±40°, 0.5-35m)
 - **发布**: `/radar/targets` (RadarTargetArray)
@@ -46,6 +47,7 @@
 
 ### ② radar_camera_projector — 核心融合节点
 
+- **代码**: `mowen_radar_fusion/radar_camera_projector.py`
 - **订阅**:
   - `/radar/targets` (RadarTargetArray)
   - `/rgb_camera/image_raw` (sensor_msgs/Image)
@@ -86,6 +88,7 @@
 
 ### ③ radar_detector — CNN 目标检测
 
+- **代码**: `mowen_radar_fusion/radar_detector.py`
 - **订阅**:
   - `/camera/image_radar` (雷达增强图, 触发检测)
   - `/rgb_camera/image_raw` (原始相机图)
@@ -107,6 +110,9 @@
 
 ### ④ Gazebo 传感器层
 
+- **SDF 模型**: `models/mowen_with_sensors/model.sdf` (由 `scripts/add_sensors_to_model.py` 生成)
+- **URDF 模型**: `urdf/mowen_with_sensors.urdf`
+
 | 传感器 | SDF sensor name | 话题 | 参数 |
 |--------|----------------|------|------|
 | LiDAR | `lds_laser` | `/scan` | 1440束, 360°, 0.12-3.5m |
@@ -115,8 +121,15 @@
 
 ### ⑤ fusion_visualizer — 可视化
 
+- **代码**: `mowen_radar_fusion/fusion_visualizer_node.py`
 - **订阅**: `/rgb_camera/image_raw`, `/camera/image_radar`
 - **发布**: `/camera/fusion_display` — 并排对比图 (原始 | 雷达增强)
+
+### ⑥ 启动配置
+
+- **Launch 文件**: `launch/radar_fusion.launch.py` — 一次性启动全部 8 个节点
+- **世界文件**: `models/race_scene.world` — 竞赛场景 (12×8m 围墙场地)
+- **竞赛模型**: `models/race_models/` — Gazebo 模型库 (锥桶/车/人/树, 来自 osrf/gazebo_models)
 
 ## 启动
 
