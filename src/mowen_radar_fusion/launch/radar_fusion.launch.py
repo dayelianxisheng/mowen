@@ -46,7 +46,7 @@ def generate_launch_description():
         robot_desc = f.read()
 
     # ---- 世界文件 ----
-    warehouse_world = os.path.join(pkg_mowen_radar, 'models', 'scene.world')
+    warehouse_world = os.path.join(pkg_mowen_radar, 'models', 'race_scene.world')
 
     # ---- Gazebo 路径配置 ----
     gazebo_model_path = os.pathsep.join([
@@ -107,7 +107,7 @@ def generate_launch_description():
             '-file', sdf_path,
             '-x', x_pose,
             '-y', y_pose,
-            '-z', '0.01'
+            '-z', '0.2'
         ],
         output='screen',
     )

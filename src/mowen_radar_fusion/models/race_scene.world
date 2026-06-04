@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<sdf version="1.6">
+  <world name="race_track">
+    <include><uri>model://sun</uri></include>
+    <include><uri>model://ground_plane</uri></include>
+    <scene><shadows>false</shadows></scene>
+    <physics type="ode">
+      <real_time_update_rate>1000.0</real_time_update_rate>
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <ode>
+        <solver><type>quick</type><iters>150</iters><sor>1.4</sor>
+        <use_dynamic_moi_rescaling>1</use_dynamic_moi_rescaling></solver>
+        <constraints><cfm>0.00001</cfm><erp>0.2</erp>
+        <contact_max_correcting_vel>2000.0</contact_max_correcting_vel>
+        <contact_surface_layer>0.01</contact_surface_layer></constraints>
+      </ode>
+    </physics>
+
+    <!-- ====== 赛道: 锥桶定义 U 型赛道 ====== -->
+    <!-- 直道右边界 -->
+    <include><uri>model://construction_cone</uri><pose>1 1 0 0 0 0</pose></include>
+    <include><uri>model://construction_cone</uri><pose>1 2 0 0 0 0</pose></include>
+    <include><uri>model://construction_cone</uri><pose>1 3 0 0 0 0</pose></include>
+    <include><uri>model://construction_cone</uri><pose>1 4 0 0 0 0</pose></include>
+    <include><uri>model://construction_cone</uri><pose>1 5 0 0 0 0</pose></include>
+    <include><uri>model://construction_cone</uri><pose>1 6 0 0 0 0</pose></include>
+    <!-- 直道左边界 -->
+    <include><uri>model://construction_cone</uri><pose>5 1 0 0 0 0</pose></include>
+    <include><uri>model://construction_cone</uri><pose>5 2 0 0 0 0</pose></include>
+    <include><uri>model://construction_cone</uri><pose>5 3 0 0 0 0</pose></include>
+    <include><uri>model://construction_cone</uri><pose>5 4 0 0 0 0</pose></include>
+    <include><uri>model://construction_cone</uri><pose>5 5 0 0 0 0</pose></include>
+    <include><uri>model://construction_cone</uri><pose>5 6 0 0 0 0</pose></include>
+    <!-- 弯道右边界 -->
+    <include><uri>model://construction_cone</uri><pose>2 7 0 0 0 0</pose></include>
+    <include><uri>model://construction_cone</uri><pose>3 7 0 0 0 0</pose></include>
+    <include><uri>model://construction_cone</uri><pose>4 7 0 0 0 0</pose></include>
+    <!-- 弯道左边界 -->
+    <include><uri>model://construction_cone</uri><pose>2 8 0 0 0 0</pose></include>
+    <include><uri>model://construction_cone</uri><pose>3 8 0 0 0 0</pose></include>
+    <include><uri>model://construction_cone</uri><pose>4 8 0 0 0 0</pose></include>
+    <!-- 返回直道 下边界 -->
+    <include><uri>model://construction_cone</uri><pose>-3 7 0 0 0 0</pose></include>
+    <include><uri>model://construction_cone</uri><pose>-3 6 0 0 0 0</pose></include>
+    <include><uri>model://construction_cone</uri><pose>-3 5 0 0 0 0</pose></include>
+    <include><uri>model://construction_cone</uri><pose>-3 4 0 0 0 0</pose></include>
+    <include><uri>model://construction_cone</uri><pose>-3 3 0 0 0 0</pose></include>
+    <include><uri>model://construction_cone</uri><pose>-3 2 0 0 0 0</pose></include>
+    <!-- 返回直道 上边界 -->
+    <include><uri>model://construction_cone</uri><pose>-1 3 0 0 0 0</pose></include>
+    <include><uri>model://construction_cone</uri><pose>-1 4 0 0 0 0</pose></include>
+    <include><uri>model://construction_cone</uri><pose>-1 5 0 0 0 0</pose></include>
+    <include><uri>model://construction_cone</uri><pose>-1 6 0 0 0 0</pose></include>
+    <include><uri>model://construction_cone</uri><pose>-1 7 0 0 0 0</pose></include>
+
+    <!-- ====== 障碍物 ====== -->
+    <include><uri>model://cardboard_box</uri><pose>3 3 0 0 0 0</pose></include>
+    <include><uri>model://jersey_barrier</uri><pose>3 5 0 0 0 0</pose></include>
+    <include><uri>model://jersey_barrier</uri><pose>-2 5 0 0 0 1.57</pose></include>
+
+    <!-- ====== 静态车辆/物体 (CNN 可识别) ====== -->
+    <include><uri>model://hatchback_red</uri><pose>0 9 0 0 0 0</pose></include>
+    <include><uri>model://hatchback</uri><pose>8 4 0 0 0 0</pose></include>
+    <include><uri>model://person_standing</uri><pose>4 3 0 0 0 1.57</pose></include>
+    <include><uri>model://person_standing</uri><pose>-2 3 0 0 0 -0.5</pose></include>
+    <include><uri>model://dumpster</uri><pose>6 8 0 0 0 0</pose></include>
+    <include><uri>model://cafe_table</uri><pose>7 2 0 0 0 0</pose></include>
+
+    <!-- ====== 标志牌 ====== -->
+    <include><uri>model://stop_sign</uri><pose>1 0 0 0 0 0</pose></include>
+    <include><uri>model://stop_light</uri><pose>5 0 0 0 0 0</pose></include>
+    <include><uri>model://lamp_post</uri><pose>-3 0 0 0 0 0</pose></include>
+
+    <!-- ====== 场景装饰 ====== -->
+    <include><uri>model://pine_tree</uri><pose>-5 2 0 0 0 0</pose></include>
+    <include><uri>model://pine_tree</uri><pose>-5 0 0 0 0 0</pose></include>
+    <include><uri>model://oak_tree</uri><pose>8 -2 0 0 0 0</pose></include>
+    <include><uri>model://fire_hydrant</uri><pose>3 -1 0 0 0 0</pose></include>
+    <include><uri>model://bus_stop</uri><pose>-4 -3 0 0 0 -1.57</pose></include>
+
+    <!-- ====== 数字标识 ====== -->
+    <include><uri>model://number1</uri><pose>1 -0.5 0 0 0 0</pose></include>
+    <include><uri>model://number2</uri><pose>3 -0.5 0 0 0 0</pose></include>
+    <include><uri>model://number3</uri><pose>5 -0.5 0 0 0 0</pose></include>
+  </world>
+</sdf>
